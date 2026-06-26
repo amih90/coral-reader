@@ -1,0 +1,113 @@
+/* Coral Reader — shared legal document stylesheet.
+   Used by privacy-policy.html, terms-of-use.html, and support.html. Inlined at runtime by
+   LegalDocumentScreen for offline rendering. Mobile-first, theme-neutral. */
+
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --fg: #1c1b1f;
+  --muted: #5f5f6b;
+  --accent: #ff7f6b;
+  --rule: #e3e1e6;
+  --table-head: rgba(127, 127, 127, 0.10);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141318;
+    --fg: #e6e1e9;
+    --muted: #c9c5d0;
+    --accent: #ff9d8a;
+    --rule: #2c2a31;
+    --table-head: rgba(255, 255, 255, 0.06);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 20px 18px 56px;
+  -webkit-text-size-adjust: 100%;
+}
+
+a { color: var(--accent); }
+
+h1 {
+  font-size: 24px;
+  line-height: 1.25;
+  margin: 0 0 4px;
+}
+
+h2 {
+  font-size: 19px;
+  margin: 28px 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule);
+}
+
+h3 {
+  font-size: 16px;
+  margin: 20px 0 6px;
+}
+
+p, li { margin: 0 0 10px; }
+
+ul { padding-inline-start: 22px; }
+
+.meta {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0 0 20px;
+}
+
+.summary {
+  background: rgba(127, 127, 127, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0 0 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 16px;
+  font-size: 14px;
+}
+
+th, td {
+  border: 1px solid var(--rule);
+  padding: 8px 10px;
+  text-align: start;
+  vertical-align: top;
+}
+
+th {
+  background: var(--table-head);
+  font-weight: 700;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  background: rgba(127, 127, 127, 0.14);
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+footer {
+  margin-top: 32px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 13px;
+}
