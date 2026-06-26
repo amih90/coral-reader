@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coral Reader — Read beautifully. Anywhere.</title>
+  <meta name="description" content="Coral Reader is a modern, distraction-free reader for EPUB and PDF, built for Android and iOS. Import your books and documents and read them your way." />
+  <meta property="og:title" content="Coral Reader — Read beautifully. Anywhere." />
+  <meta property="og:description" content="A modern, distraction-free reader for EPUB and PDF, built for Android and iOS." />
+  <meta property="og:image" content="assets/logo-banner.jpg" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="assets/logo.jpg" />
+  <style>
+    :root {
+      --coral: #ff6b4a;
+      --coral-deep: #f0502e;
+      --ink: #1a1a1a;
+      --muted: #5f5f6b;
+      --bg: #ffffff;
+      --card: #fff7f4;
+      --rule: #f0e3de;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--coral-deep); text-decoration: none; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--coral) 0%, var(--coral-deep) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 72px 24px 88px;
+    }
+    .hero img.logo { width: 160px; height: auto; border-radius: 28px; box-shadow: 0 18px 40px rgba(0,0,0,.18); }
+    .hero h1 { font-size: 2.6rem; margin: 28px 0 10px; letter-spacing: -.5px; }
+    .hero p.tag { font-size: 1.25rem; opacity: .95; max-width: 620px; margin: 0 auto 28px; }
+    .badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .badge {
+      background: rgba(255,255,255,.16); color: #fff; border: 1px solid rgba(255,255,255,.35);
+      padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: .95rem;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Sections */
+    section { padding: 64px 0; }
+    section h2 { font-size: 1.9rem; text-align: center; margin-bottom: 10px; letter-spacing: -.3px; }
+    section .lead { text-align: center; color: var(--muted); max-width: 680px; margin: 0 auto 40px; font-size: 1.08rem; }
+
+    .overview { background: var(--card); }
+    .overview .formats {
+      display: inline-flex; gap: 10px; margin-top: 18px;
+    }
+    .pill {
+      background: #fff; border: 1px solid var(--rule); border-radius: 999px;
+      padding: 8px 18px; font-weight: 700; color: var(--coral-deep);
+    }
+
+    /* Features grid */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .feature {
+      background: #fff; border: 1px solid var(--rule); border-radius: 16px;
+      padding: 24px; transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .feature:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(240,80,46,.10); }
+    .feature .ico { font-size: 1.8rem; }
+    .feature h3 { margin: 12px 0 6px; font-size: 1.12rem; }
+    .feature p { color: var(--muted); font-size: .98rem; }
+
+    /* Screenshots */
+    .shots { background: var(--card); }
+    .shot-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 22px; }
+    .shot { text-align: center; }
+    .shot img { width: 100%; max-width: 230px; border-radius: 18px; box-shadow: 0 14px 30px rgba(0,0,0,.12); }
+    .shot span { display: block; margin-top: 12px; font-weight: 600; color: var(--ink); }
+
+    /* Platforms */
+    .platforms { text-align: center; }
+    .plat-row { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+    .plat { font-size: 1.1rem; font-weight: 700; }
+    .plat small { display: block; font-weight: 400; color: var(--muted); }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, var(--coral) 0%, var(--coral-deep) 100%);
+      color: #fff; text-align: center;
+    }
+    .cta h2 { color: #fff; }
+    .cta p { opacity: .95; max-width: 540px; margin: 0 auto 24px; }
+    .store-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .store-btn {
+      background: #fff; color: var(--coral-deep); padding: 14px 26px; border-radius: 999px;
+      font-weight: 700; border: none;
+    }
+    .store-btn.soon { background: rgba(255,255,255,.18); color: #fff; border: 1px solid rgba(255,255,255,.4); }
+
+    /* Footer */
+    footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: .95rem; }
+    footer .links { margin-bottom: 14px; display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; }
+    footer img { width: 64px; border-radius: 14px; margin-bottom: 12px; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      .hero p.tag { font-size: 1.08rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap">
+      <img class="logo" src="assets/logo.jpg" alt="Coral Reader logo" />
+      <h1>Coral Reader</h1>
+      <p class="tag">Read beautifully. Anywhere. A modern, distraction-free reader for EPUB &amp; PDF, built for Android and iOS.</p>
+      <div class="badges">
+        <span class="badge">📱 Android</span>
+        <span class="badge"> iOS</span>
+        <span class="badge">📖 EPUB &amp; PDF</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="overview">
+    <div class="wrap" style="text-align:center;">
+      <h2>One reader for your whole library</h2>
+      <p class="lead">
+        Coral Reader turns your phone and tablet into a personal library. Import your own
+        <strong>EPUB</strong> books and <strong>PDF</strong> documents, read them with a clean,
+        paginated, fully customizable experience — then pick up right where you left off.
+        No clutter, no noise — just comfortable, elegant reading.
+      </p>
+      <div class="formats">
+        <span class="pill">EPUB</span>
+        <span class="pill">PDF</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Features</h2>
+      <p class="lead">Everything you need for a focused, comfortable read.</p>
+      <div class="grid">
+        <div class="feature"><div class="ico">📚</div><h3>EPUB &amp; PDF</h3><p>Read both EPUB books and PDF documents in one place.</p></div>
+        <div class="feature"><div class="ico">📂</div><h3>Library Management</h3><p>Import, organize, and browse your collection in grid or list view with rich cover art.</p></div>
+        <div class="feature"><div class="ico">📄</div><h3>Paginated Reader</h3><p>Smooth, horizontal page-by-page reading that feels like a real book.</p></div>
+        <div class="feature"><div class="ico">🎨</div><h3>Reading Customization</h3><p>Fonts, font size, margins, line height, spacing, alignment, brightness, and color themes.</p></div>
+        <div class="feature"><div class="ico">✍️</div><h3>Highlights &amp; Notes</h3><p>Mark up passages and remember what matters.</p></div>
+        <div class="feature"><div class="ico">📊</div><h3>Progress Tracking</h3><p>Per-book reading position with an interactive progress bar and percentage.</p></div>
+        <div class="feature"><div class="ico">🌙</div><h3>Light &amp; Dark Themes</h3><p>Read comfortably day or night, or follow your system theme.</p></div>
+        <div class="feature"><div class="ico">🌍</div><h3>Localization</h3><p>Full English and Hebrew support, including right-to-left (RTL) layout.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="shots">
+    <div class="wrap">
+      <h2>See it in action</h2>
+      <p class="lead">A reading experience designed around you.</p>
+      <div class="shot-row">
+        <div class="shot"><img src="assets/screenshots/screenshot1.jpg" alt="Library" /><span>Your library</span></div>
+        <div class="shot"><img src="assets/screenshots/screenshot2.jpg" alt="Reading view" /><span>Your book, your rhythm</span></div>
+        <div class="shot"><img src="assets/screenshots/screenshot3.jpg" alt="Customization" /><span>Read exactly your way</span></div>
+        <div class="shot"><img src="assets/screenshots/screenshot4.jpg" alt="Highlights" /><span>Highlight, note, remember</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="platforms">
+    <div class="wrap">
+      <h2>Available on Android &amp; iOS</h2>
+      <p class="lead">Built with Kotlin Multiplatform for a true native experience on every device.</p>
+      <div class="plat-row">
+        <div class="plat">🤖 Android<small>Phones &amp; Tablets</small></div>
+        <div class="plat"> iOS<small>iPhone &amp; iPad</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>Coming soon</h2>
+      <p>Coral Reader is on its way to the App Store and Google Play. Star the project to follow along.</p>
+      <div class="store-btns">
+        <span class="store-btn soon"> App Store — soon</span>
+        <span class="store-btn soon">🤖 Google Play — soon</span>
+        <a class="store-btn" href="https://github.com/amih90/coral-reader">⭐ Star on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <img src="assets/logo.jpg" alt="Coral Reader" />
+      <div class="links">
+        <a href="legal/privacy-policy.html">Privacy Policy</a>
+        <a href="legal/terms-of-use.html">Terms of Use</a>
+        <a href="legal/support.html">Support</a>
+        <a href="BRANDING.md">Branding</a>
+      </div>
+      <p>Coral Reader — Read beautifully. Anywhere.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
