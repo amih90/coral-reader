@@ -1,25 +1,33 @@
-/* Coral Reader — shared legal document stylesheet.
-   Used by privacy-policy.html, terms-of-use.html, and support.html. Inlined at runtime by
-   LegalDocumentScreen for offline rendering. Mobile-first, theme-neutral. */
+/* Coral Reader — branded legal document stylesheet.
+   Used by privacy-policy.html, terms-of-use.html, and support.html.
+   Mobile-first, with light/dark support and Coral Reader branding. */
 
 :root {
   color-scheme: light dark;
-  --bg: #ffffff;
+  --coral: #ff6b4a;
+  --coral-deep: #f0502e;
+  --bg: #fbf7f5;
+  --card: #ffffff;
   --fg: #1c1b1f;
   --muted: #5f5f6b;
-  --accent: #ff7f6b;
-  --rule: #e3e1e6;
-  --table-head: rgba(127, 127, 127, 0.10);
+  --accent: #f0502e;
+  --rule: #efe2dd;
+  --table-head: #fff3ef;
+  --summary-bg: #fff7f4;
+  --shadow: 0 18px 44px rgba(240, 80, 46, 0.10);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #141318;
+    --bg: #100f13;
+    --card: #1a191f;
     --fg: #e6e1e9;
-    --muted: #c9c5d0;
+    --muted: #b9b5c0;
     --accent: #ff9d8a;
     --rule: #2c2a31;
-    --table-head: rgba(255, 255, 255, 0.06);
+    --table-head: rgba(255, 127, 107, 0.12);
+    --summary-bg: rgba(255, 127, 107, 0.08);
+    --shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
   }
 }
 
@@ -35,58 +43,108 @@ html, body {
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
   font-size: 16px;
-  line-height: 1.6;
-  padding: 20px 18px 56px;
+  line-height: 1.65;
   -webkit-text-size-adjust: 100%;
+  padding: 0 16px 48px;
 }
 
-a { color: var(--accent); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Branded header band */
+.site-header {
+  background: linear-gradient(135deg, var(--coral) 0%, var(--coral-deep) 100%);
+  margin: 0 -16px 28px;
+  padding: 22px 16px;
+  text-align: center;
+}
+
+.site-header a.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+
+.site-header img {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.site-header .brand-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+/* Content card */
+.doc {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 32px 26px 36px;
+}
 
 h1 {
-  font-size: 24px;
-  line-height: 1.25;
-  margin: 0 0 4px;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin: 0 0 6px;
 }
 
 h2 {
-  font-size: 19px;
-  margin: 28px 0 8px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid var(--rule);
+  font-size: 20px;
+  margin: 32px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--rule);
 }
 
 h3 {
   font-size: 16px;
-  margin: 20px 0 6px;
+  margin: 22px 0 6px;
+  color: var(--coral-deep);
 }
 
-p, li { margin: 0 0 10px; }
+@media (prefers-color-scheme: dark) {
+  h3 { color: var(--accent); }
+}
+
+p, li { margin: 0 0 11px; }
 
 ul { padding-inline-start: 22px; }
 
 .meta {
   color: var(--muted);
   font-size: 13px;
-  margin: 0 0 20px;
+  margin: 0 0 22px;
 }
 
 .summary {
-  background: rgba(127, 127, 127, 0.08);
-  border-radius: 10px;
-  padding: 12px 14px;
-  margin: 0 0 20px;
+  background: var(--summary-bg);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--coral);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 0 0 26px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   font-size: 14px;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 th, td {
   border: 1px solid var(--rule);
-  padding: 8px 10px;
+  padding: 9px 11px;
   text-align: start;
   vertical-align: top;
 }
@@ -99,15 +157,45 @@ th {
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 13px;
-  background: rgba(127, 127, 127, 0.14);
-  padding: 1px 4px;
+  background: rgba(240, 80, 46, 0.12);
+  color: var(--coral-deep);
+  padding: 1px 5px;
   border-radius: 4px;
 }
 
-footer {
-  margin-top: 32px;
-  padding-top: 12px;
+@media (prefers-color-scheme: dark) {
+  code { color: var(--accent); }
+}
+
+/* Footer */
+.site-footer {
+  max-width: 760px;
+  margin: 28px auto 0;
+  padding-top: 18px;
   border-top: 1px solid var(--rule);
   color: var(--muted);
   font-size: 13px;
+  text-align: center;
+}
+
+.site-footer .links {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+/* Legacy in-document footer (if present) */
+footer {
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (max-width: 520px) {
+  .doc { padding: 24px 18px 28px; border-radius: 14px; }
+  h1 { font-size: 24px; }
 }
