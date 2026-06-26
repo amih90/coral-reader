@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/logo-icon.png" alt="Coral Reader logo" width="160" />
+<img src="assets/logo.jpg" alt="Coral Reader logo" width="180" />
 
 # Coral Reader
 
@@ -110,7 +110,7 @@ Looking for logos, colors, and brand assets? See the **[Branding Guide](BRANDING
 
 <div align="center">
 
-<img src="assets/logo-mark.jpg" alt="Coral Reader" width="120" />
+<img src="assets/logo.jpg" alt="Coral Reader" width="120" />
 
 **Coral Reader** — Read beautifully. Anywhere.
 

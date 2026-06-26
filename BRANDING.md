@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/logo-icon.png" alt="Coral Reader logo" width="200" />
+<img src="assets/logo.jpg" alt="Coral Reader logo" width="200" />
 
 # Coral Reader — Branding Guide
 
@@ -24,38 +24,23 @@ keeps the brand grounded in what the app is all about — reading.
 
 ## 🎨 Logos & Assets
 
-### Primary Icon
+### Primary Logo
 
-The primary app icon — the coral-and-book mark on a warm gradient. Use this as the
-main brand symbol.
+The primary logo — the coral-and-book mark with the **Coral** wordmark on a warm
+coral-orange gradient. Use this as the main brand symbol.
 
-<img src="assets/logo-icon.png" alt="Primary icon" width="160" />
+<img src="assets/logo.jpg" alt="Primary logo" width="200" />
 
-`assets/logo-icon.png`
+`assets/logo.jpg`
 
-### Banner / Wordmark
+### Banner
 
-The full logo with the **Coral** wordmark on a coral-orange gradient. Use on light
-and dark backgrounds where horizontal space allows.
+A larger, high-resolution version of the primary logo for hero images, headers, and
+wide layouts.
 
 <img src="assets/logo-banner.jpg" alt="Banner logo" width="320" />
 
 `assets/logo-banner.jpg`
-
-### Alternate Mark
-
-An alternate coral-and-book wordmark on a transparent/white background, for use on
-light surfaces and documents.
-
-<img src="assets/logo-mark.jpg" alt="Alternate mark" width="240" />
-
-`assets/logo-mark.jpg`
-
-### Compact Wordmark
-
-<img src="assets/logo.jpg" alt="Compact wordmark" width="240" />
-
-`assets/logo.jpg`
 
 ---
 
@@ -97,7 +82,7 @@ light surfaces and documents.
 
 <div align="center">
 
-<img src="assets/logo-mark.jpg" alt="Coral Reader" width="140" />
+<img src="assets/logo.jpg" alt="Coral Reader" width="140" />
 
 **Coral Reader** · Available on Android & iOS · EPUB & PDF
 
