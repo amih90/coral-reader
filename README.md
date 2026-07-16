@@ -32,13 +32,13 @@ just comfortable, elegant reading.
 
 ---
 
-## 📸 Screenshots
+## 📸 App Preview
 
 <div align="center">
 
 | | | | |
 | :---: | :---: | :---: | :---: |
-| <img src="assets/screenshots/screenshot1.jpg" alt="Library" width="200" /> | <img src="assets/screenshots/screenshot2.jpg" alt="Reading view" width="200" /> | <img src="assets/screenshots/screenshot3.jpg" alt="Reading customization" width="200" /> | <img src="assets/screenshots/screenshot4.jpg" alt="Highlights and notes" width="200" /> |
+| <img src="assets/screenshots/ad1.webp" alt="Library" width="200" /> | <img src="assets/screenshots/ad2.webp" alt="Reading view" width="200" /> | <img src="assets/screenshots/ad3.webp" alt="Reading customization" width="200" /> | <img src="assets/screenshots/ad4.webp" alt="Highlights and notes" width="200" /> |
 | **Your library** | **Your book, your rhythm** | **Read exactly your way** | **Highlight, note, remember** |
 
 </div>
@@ -88,9 +88,7 @@ or any Android phone or tablet.
 
 ## 🚀 Download
 
-Coral Reader is coming to the **App Store** and **Google Play**.
-
-> ⭐ Star this repository to follow along as we launch on Android and iOS.
+Coral Reader is available on the **[App Store](https://apps.apple.com/us/app/coral-reader/id6782911744)** and **[Google Play](https://play.google.com/store/apps/details?id=dev.hollander.coralreader&pcampaignid=web_share)**.
 
 ---
 

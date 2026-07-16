@@ -46,8 +46,12 @@
     .badge {
       background: rgba(255,255,255,.16); color: #fff; border: 1px solid rgba(255,255,255,.35);
       padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: .95rem;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px); display: inline-flex; align-items: center; gap: 7px;
     }
+    .store-badge-link { display: inline-flex; align-items: center; line-height: 0; }
+    .store-badge-link img { display: block; height: auto; }
+    .store-badge-link .app-store-badge { width: 120px; }
+    .store-badge-link .google-play-badge { width: 135px; }
 
     /* Sections */
     section { padding: 64px 0; }
@@ -74,7 +78,7 @@
     .feature h3 { margin: 12px 0 6px; font-size: 1.12rem; }
     .feature p { color: var(--muted); font-size: .98rem; }
 
-    /* Screenshots */
+    /* App previews */
     .shots { background: var(--card); }
     .shot-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 22px; }
     .shot { text-align: center; }
@@ -97,9 +101,9 @@
     .store-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
     .store-btn {
       background: #fff; color: var(--coral-deep); padding: 14px 26px; border-radius: 999px;
-      font-weight: 700; border: none;
+      font-weight: 700; border: none; display: inline-flex; align-items: center; gap: 9px;
     }
-    .store-btn.soon { background: rgba(255,255,255,.18); color: #fff; border: 1px solid rgba(255,255,255,.4); }
+    .store-btn.secondary { background: rgba(255,255,255,.18); color: #fff; border: 1px solid rgba(255,255,255,.4); }
 
     /* Footer */
     footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: .95rem; }
@@ -120,8 +124,12 @@
       <h1>Coral Reader</h1>
       <p class="tag">Read beautifully. Anywhere. A modern, distraction-free reader for EPUB &amp; PDF, built for Android and iOS.</p>
       <div class="badges">
-        <span class="badge">📱 Android</span>
-        <span class="badge"> iOS</span>
+        <a class="store-badge-link" href="https://apps.apple.com/us/app/coral-reader/id6782911744" aria-label="Download Coral Reader on the App Store">
+          <img class="app-store-badge" src="assets/app-store-badge.svg" alt="Download on the App Store" />
+        </a>
+        <a class="store-badge-link" href="https://play.google.com/store/apps/details?id=dev.hollander.coralreader&amp;pcampaignid=web_share" aria-label="Get Coral Reader on Google Play">
+          <img class="google-play-badge" src="assets/google-play-badge.png" alt="Get it on Google Play" />
+        </a>
         <span class="badge">📖 EPUB &amp; PDF</span>
       </div>
     </div>
@@ -165,33 +173,26 @@
       <h2>See it in action</h2>
       <p class="lead">A reading experience designed around you.</p>
       <div class="shot-row">
-        <div class="shot"><img src="assets/screenshots/screenshot1.jpg" alt="Library" /><span>Your library</span></div>
-        <div class="shot"><img src="assets/screenshots/screenshot2.jpg" alt="Reading view" /><span>Your book, your rhythm</span></div>
-        <div class="shot"><img src="assets/screenshots/screenshot3.jpg" alt="Customization" /><span>Read exactly your way</span></div>
-        <div class="shot"><img src="assets/screenshots/screenshot4.jpg" alt="Highlights" /><span>Highlight, note, remember</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="platforms">
-    <div class="wrap">
-      <h2>Available on Android &amp; iOS</h2>
-      <p class="lead">Built with Kotlin Multiplatform for a true native experience on every device.</p>
-      <div class="plat-row">
-        <div class="plat">🤖 Android<small>Phones &amp; Tablets</small></div>
-        <div class="plat"> iOS<small>iPhone &amp; iPad</small></div>
+        <div class="shot"><img src="assets/screenshots/ad1.webp" alt="Coral Reader library" /><span>Your library</span></div>
+        <div class="shot"><img src="assets/screenshots/ad2.webp" alt="Coral Reader reading view" /><span>Your book, your rhythm</span></div>
+        <div class="shot"><img src="assets/screenshots/ad3.webp" alt="Coral Reader customization options" /><span>Read exactly your way</span></div>
+        <div class="shot"><img src="assets/screenshots/ad4.webp" alt="Coral Reader highlights and notes" /><span>Highlight, note, remember</span></div>
       </div>
     </div>
   </section>
 
   <section class="cta">
     <div class="wrap">
-      <h2>Coming soon</h2>
-      <p>Coral Reader is on its way to the App Store and Google Play. Star the project to follow along.</p>
+      <h2>Available on Android &amp; iOS</h2>
+      <p>Start reading beautifully today on iPhone, iPad, Android phones, and tablets.</p>
       <div class="store-btns">
-        <span class="store-btn soon"> App Store — soon</span>
-        <span class="store-btn soon">🤖 Google Play — soon</span>
-        <a class="store-btn" href="https://github.com/amih90/coral-reader">⭐ Star on GitHub</a>
+        <a class="store-badge-link" href="https://apps.apple.com/us/app/coral-reader/id6782911744" aria-label="Download Coral Reader on the App Store">
+          <img class="app-store-badge" src="assets/app-store-badge.svg" alt="Download on the App Store" />
+        </a>
+        <a class="store-badge-link" href="https://play.google.com/store/apps/details?id=dev.hollander.coralreader&amp;pcampaignid=web_share" aria-label="Get Coral Reader on Google Play">
+          <img class="google-play-badge" src="assets/google-play-badge.png" alt="Get it on Google Play" />
+        </a>
+        <a class="store-btn secondary" href="https://github.com/amih90/coral-reader">Star on GitHub</a>
       </div>
     </div>
   </section>
