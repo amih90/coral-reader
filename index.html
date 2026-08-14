@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coral Reader — Read, listen, and understand</title>
-  <meta name="description" content="Coral Reader is a private, beautifully customizable reader for EPUB, PDF, and more. Organize with categories, listen with Read Aloud, and translate offline on Android and iOS." />
+  <meta name="description"
+    content="Coral Reader is a private, beautifully customizable reader for EPUB, PDF, and more. Organize with categories, listen with Read Aloud, and translate offline on Android and iOS." />
   <meta property="og:title" content="Coral Reader — Read, listen, and understand" />
-  <meta property="og:description" content="Your books, organized your way, narrated on device, and translated offline." />
+  <meta property="og:description"
+    content="Your books, organized your way, narrated on device, and translated offline." />
   <meta property="og:image" content="assets/logo-banner.jpg" />
   <meta property="og:type" content="website" />
   <link rel="icon" href="assets/logo.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,500;6..72,600&amp;display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,500;6..72,600&amp;display=swap"
+    rel="stylesheet" />
   <style>
     :root {
       --coral: #ff6347;
@@ -26,110 +31,519 @@
       --gold: #f6df9f;
       --rule: #dedbd4;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: "DM Sans", sans-serif; color: var(--ink); background: var(--paper); line-height: 1.55; -webkit-font-smoothing: antialiased; }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; }
-    .wrap { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
-    .eyebrow { color: var(--coral-deep); font-size: .76rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
-    h1, h2 { font-family: "Newsreader", serif; font-weight: 600; line-height: .98; letter-spacing: 0; }
 
-    .nav { position: absolute; inset: 0 0 auto; z-index: 4; padding: 22px 0; color: var(--white); }
-    .nav .wrap { display: flex; align-items: center; justify-content: space-between; }
-    .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
-    .nav-brand img { width: 38px; height: 38px; border-radius: 8px; }
-    .nav-links { display: flex; align-items: center; gap: 24px; font-size: .9rem; font-weight: 600; }
-    .nav-download { border: 1px solid rgba(255,255,255,.55); padding: 9px 15px; border-radius: 6px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    .hero { min-height: 760px; color: var(--white); background: var(--coral-deep); position: relative; overflow: hidden; display: grid; align-items: center; padding: 118px 0 72px; }
-    .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(29,24,21,.5), rgba(29,24,21,.05)), url("assets/screenshots/ad2.webp") center 35% / cover; opacity: .38; }
-    .hero::after { content: ""; position: absolute; inset: auto 0 0; height: 190px; background: linear-gradient(to top, rgba(25,20,18,.52), transparent); }
-    .hero-content { position: relative; z-index: 2; width: min(690px, 100%); }
-    .hero .eyebrow { color: #ffd8cf; }
-    .hero h1 { font-size: clamp(4.3rem, 10vw, 8.5rem); margin: 16px 0 18px; }
-    .hero-copy { font-size: clamp(1.08rem, 2vw, 1.35rem); max-width: 620px; color: rgba(255,255,255,.93); }
-    .store-links { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 30px; }
-    .store-links img { display: block; height: 42px; width: auto; }
-    .hero-note { position: absolute; z-index: 2; bottom: 30px; right: max(20px, calc((100% - 1160px) / 2)); font-size: .82rem; color: rgba(255,255,255,.8); }
+    html {
+      scroll-behavior: smooth;
+    }
 
-    section { padding: 96px 0; }
-    .section-head { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 40px; margin-bottom: 48px; }
-    .section-head h2 { font-size: clamp(2.8rem, 5vw, 4.8rem); margin-top: 12px; }
-    .section-head p { color: var(--muted); font-size: 1.08rem; max-width: 520px; justify-self: end; }
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
 
-    .format-strip { padding: 24px 0; background: var(--ink); color: var(--white); }
-    .format-strip .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .format-strip strong { font-family: "Newsreader", serif; font-size: 1.45rem; }
-    .format-list { display: flex; gap: 18px; flex-wrap: wrap; color: #d7d4ce; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    .stories { background: var(--white); }
-    .story-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .story { min-height: 430px; padding: 32px; border-radius: 8px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
-    .story:nth-child(1) { background: var(--gold); }
-    .story:nth-child(2) { background: var(--mint); }
-    .story:nth-child(3) { background: var(--blue); }
-    .story-number { font: 600 4.5rem/1 "Newsreader", serif; opacity: .25; }
-    .story-icon { width: 58px; height: 58px; border: 1px solid rgba(32,32,30,.28); border-radius: 50%; display: grid; place-items: center; font-size: 1.55rem; }
-    .story h3 { font: 600 2rem/1.05 "Newsreader", serif; margin: 24px 0 12px; }
-    .story p { color: #4f4e49; }
-    .story small { display: block; margin-top: 18px; font-weight: 700; font-size: .73rem; text-transform: uppercase; letter-spacing: .08em; }
+    img {
+      max-width: 100%;
+    }
 
-    .feature-band { background: var(--paper); }
-    .feature-list { border-top: 1px solid var(--rule); }
-    .feature-row { display: grid; grid-template-columns: 44px 260px 1fr; gap: 22px; align-items: start; padding: 24px 0; border-bottom: 1px solid var(--rule); }
-    .feature-row .icon { font-size: 1.25rem; }
-    .feature-row h3 { font-size: 1.08rem; }
-    .feature-row p { color: var(--muted); max-width: 690px; }
+    .wrap {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
 
-    .shots { background: #252522; color: var(--white); overflow: hidden; }
-    .shots .section-head p { color: #aaa8a0; }
-    .shots .eyebrow { color: #ff9c86; }
-    .shot-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: start; }
-    .shot:nth-child(even) { margin-top: 48px; }
-    .shot img { display: block; width: 100%; border-radius: 8px; box-shadow: 0 22px 50px rgba(0,0,0,.28); }
-    .shot span { display: block; margin-top: 13px; color: #d8d5cf; font-size: .88rem; }
+    .eyebrow {
+      color: var(--coral-deep);
+      font-size: .76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
 
-    .privacy { background: var(--mint); }
-    .privacy-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 70px; align-items: center; }
-    .privacy-mark { aspect-ratio: 1; border: 1px solid rgba(32,32,30,.25); border-radius: 50%; display: grid; place-items: center; font: 600 clamp(4rem, 10vw, 8rem)/1 "Newsreader", serif; color: #2d6750; }
-    .privacy h2 { font-size: clamp(3rem, 6vw, 5.5rem); margin: 14px 0 24px; }
-    .privacy p { color: #41594f; font-size: 1.08rem; max-width: 560px; }
-    .privacy-points { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 28px; font-size: .85rem; font-weight: 700; }
+    h1,
+    h2 {
+      font-family: "Newsreader", serif;
+      font-weight: 600;
+      line-height: .98;
+      letter-spacing: 0;
+    }
 
-    .cta { text-align: center; background: var(--coral); color: var(--white); }
-    .cta h2 { font-size: clamp(3.8rem, 8vw, 7.5rem); max-width: 850px; margin: 0 auto 20px; }
-    .cta p { max-width: 590px; margin: 0 auto; font-size: 1.1rem; }
-    .cta .store-links { justify-content: center; }
+    .nav {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 4;
+      padding: 22px 0;
+      color: var(--white);
+    }
 
-    footer { padding: 34px 0; background: var(--ink); color: #b9b6af; font-size: .85rem; }
-    footer .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    footer .links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    .nav-brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    .nav-download {
+      border: 1px solid rgba(255, 255, 255, .55);
+      padding: 9px 15px;
+      border-radius: 6px;
+    }
+
+    .hero {
+      min-height: 760px;
+      color: var(--white);
+      background: var(--coral-deep);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      align-items: center;
+      padding: 118px 0 72px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(29, 24, 21, .5), rgba(29, 24, 21, .05)), url("assets/screenshots/ad2.webp") center 35% / cover;
+      opacity: .38;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 190px;
+      background: linear-gradient(to top, rgba(25, 20, 18, .52), transparent);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(690px, 100%);
+    }
+
+    .hero .eyebrow {
+      color: #ffd8cf;
+    }
+
+    .hero h1 {
+      font-size: clamp(4.3rem, 10vw, 8.5rem);
+      margin: 16px 0 18px;
+    }
+
+    .hero-copy {
+      font-size: clamp(1.08rem, 2vw, 1.35rem);
+      max-width: 620px;
+      color: rgba(255, 255, 255, .93);
+    }
+
+    .store-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .store-links img {
+      display: block;
+      height: 42px;
+      width: auto;
+    }
+
+    .hero-note {
+      position: absolute;
+      z-index: 2;
+      bottom: 30px;
+      right: max(20px, calc((100% - 1160px) / 2));
+      font-size: .82rem;
+      color: rgba(255, 255, 255, .8);
+    }
+
+    section {
+      padding: 96px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2.8rem, 5vw, 4.8rem);
+      margin-top: 12px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 520px;
+      justify-self: end;
+    }
+
+    .format-strip {
+      padding: 24px 0;
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .format-strip .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .format-strip strong {
+      font-family: "Newsreader", serif;
+      font-size: 1.45rem;
+    }
+
+    .format-list {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: #d7d4ce;
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .stories {
+      background: var(--white);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .story {
+      min-height: 430px;
+      padding: 32px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .story:nth-child(1) {
+      background: var(--gold);
+    }
+
+    .story:nth-child(2) {
+      background: var(--mint);
+    }
+
+    .story:nth-child(3) {
+      background: var(--blue);
+    }
+
+    .story-number {
+      font: 600 4.5rem/1 "Newsreader", serif;
+      opacity: .25;
+    }
+
+    .story-icon {
+      width: 58px;
+      height: 58px;
+      border: 1px solid rgba(32, 32, 30, .28);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.55rem;
+    }
+
+    .story h3 {
+      font: 600 2rem/1.05 "Newsreader", serif;
+      margin: 24px 0 12px;
+    }
+
+    .story p {
+      color: #4f4e49;
+    }
+
+    .story small {
+      display: block;
+      margin-top: 18px;
+      font-weight: 700;
+      font-size: .73rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .feature-band {
+      background: var(--paper);
+    }
+
+    .feature-list {
+      border-top: 1px solid var(--rule);
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 44px 260px 1fr;
+      gap: 22px;
+      align-items: start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .feature-row .icon {
+      font-size: 1.25rem;
+    }
+
+    .feature-row h3 {
+      font-size: 1.08rem;
+    }
+
+    .feature-row p {
+      color: var(--muted);
+      max-width: 690px;
+    }
+
+    .shots {
+      background: #252522;
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .shots .section-head p {
+      color: #aaa8a0;
+    }
+
+    .shots .eyebrow {
+      color: #ff9c86;
+    }
+
+    .shot-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+
+    .shot:nth-child(even) {
+      margin-top: 48px;
+    }
+
+    .shot img {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 22px 50px rgba(0, 0, 0, .28);
+    }
+
+    .shot span {
+      display: block;
+      margin-top: 13px;
+      color: #d8d5cf;
+      font-size: .88rem;
+    }
+
+    .privacy {
+      background: var(--mint);
+    }
+
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .privacy-mark {
+      aspect-ratio: 1;
+      border: 1px solid rgba(32, 32, 30, .25);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font: 600 clamp(4rem, 10vw, 8rem)/1 "Newsreader", serif;
+      color: #2d6750;
+    }
+
+    .privacy h2 {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      margin: 14px 0 24px;
+    }
+
+    .privacy p {
+      color: #41594f;
+      font-size: 1.08rem;
+      max-width: 560px;
+    }
+
+    .privacy-points {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      font-size: .85rem;
+      font-weight: 700;
+    }
+
+    .cta {
+      text-align: center;
+      background: var(--coral);
+      color: var(--white);
+    }
+
+    .cta h2 {
+      font-size: clamp(3.8rem, 8vw, 7.5rem);
+      max-width: 850px;
+      margin: 0 auto 20px;
+    }
+
+    .cta p {
+      max-width: 590px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    .cta .store-links {
+      justify-content: center;
+    }
+
+    footer {
+      padding: 34px 0;
+      background: var(--ink);
+      color: #b9b6af;
+      font-size: .85rem;
+    }
+
+    footer .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    footer .links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
     @media (max-width: 820px) {
-      .nav-links a:not(.nav-download) { display: none; }
-      .hero { min-height: 680px; }
-      .hero-note { display: none; }
-      .section-head, .privacy-grid { grid-template-columns: 1fr; gap: 22px; }
-      .section-head p { justify-self: start; }
-      .story-grid { grid-template-columns: 1fr; }
-      .story { min-height: 330px; }
-      .feature-row { grid-template-columns: 36px 1fr; }
-      .feature-row p { grid-column: 2; }
-      .shot-row { grid-template-columns: repeat(2, 1fr); }
-      .privacy-mark { width: min(280px, 75vw); }
+      .nav-links a:not(.nav-download) {
+        display: none;
+      }
+
+      .hero {
+        min-height: 680px;
+      }
+
+      .hero-note {
+        display: none;
+      }
+
+      .section-head,
+      .privacy-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .section-head p {
+        justify-self: start;
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .story {
+        min-height: 330px;
+      }
+
+      .feature-row {
+        grid-template-columns: 36px 1fr;
+      }
+
+      .feature-row p {
+        grid-column: 2;
+      }
+
+      .shot-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .privacy-mark {
+        width: min(280px, 75vw);
+      }
     }
+
     @media (max-width: 520px) {
-      .wrap { width: min(100% - 28px, 1160px); }
-      section { padding: 72px 0; }
-      .hero h1 { font-size: 4.15rem; }
-      .format-strip .wrap { align-items: flex-start; flex-direction: column; }
-      .shot-row { gap: 12px; }
-      .shot:nth-child(even) { margin-top: 28px; }
-      footer .wrap { align-items: flex-start; flex-direction: column; }
+      .wrap {
+        width: min(100% - 28px, 1160px);
+      }
+
+      section {
+        padding: 72px 0;
+      }
+
+      .hero h1 {
+        font-size: 4.15rem;
+      }
+
+      .format-strip .wrap {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .shot-row {
+        gap: 12px;
+      }
+
+      .shot:nth-child(even) {
+        margin-top: 28px;
+      }
+
+      footer .wrap {
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
   </style>
 </head>
+
 <body>
   <nav class="nav" aria-label="Main navigation">
     <div class="wrap">
@@ -148,10 +562,15 @@
       <div class="hero-content">
         <p class="eyebrow">Your private reading companion</p>
         <h1>Coral Reader</h1>
-        <p class="hero-copy">Read, listen, and understand. Build a library that feels like yours, with on-device narration, offline translation, and precise control over every page.</p>
+        <p class="hero-copy">Read, listen, and understand. Build a library that feels like yours, with on-device
+          narration, offline translation, and precise control over every page.</p>
         <div class="store-links">
-          <a href="https://apps.apple.com/us/app/coral-reader/id6782911744" aria-label="Download Coral Reader on the App Store"><img src="assets/app-store-badge.svg" alt="Download on the App Store" /></a>
-          <a href="https://play.google.com/store/apps/details?id=dev.hollander.coralreader&amp;pcampaignid=web_share" aria-label="Get Coral Reader on Google Play"><img src="assets/google-play-badge.png" alt="Get it on Google Play" /></a>
+          <a href="https://apps.apple.com/us/app/coral-reader/id6782911744"
+            aria-label="Download Coral Reader on the App Store"><img src="assets/app-store-badge.svg"
+              alt="Download on the App Store" /></a>
+          <a href="https://play.google.com/store/apps/details?id=dev.hollander.coralreader&amp;pcampaignid=web_share"
+            aria-label="Get Coral Reader on Google Play"><img src="assets/google-play-badge.png"
+              alt="Get it on Google Play" /></a>
         </div>
       </div>
     </div>
@@ -161,7 +580,9 @@
   <div class="format-strip" aria-label="Supported document formats">
     <div class="wrap">
       <strong>One home for every read.</strong>
-      <div class="format-list"><span>EPUB</span><span>PDF</span><span>Markdown</span><span>Text</span><span>HTML</span><span>FB2</span><span>DOCX</span><span>ODT</span></div>
+      <div class="format-list">
+        <span>EPUB</span><span>PDF</span><span>Markdown</span><span>Text</span><span>HTML</span><span>FB2</span><span>DOCX</span><span>ODT</span>
+      </div>
     </div>
   </div>
 
@@ -169,21 +590,43 @@
     <section class="stories" id="new">
       <div class="wrap">
         <div class="section-head">
-          <div><p class="eyebrow">Made for the way you read now</p><h2>More than pages.</h2></div>
-          <p>Coral Reader now helps you shape your library, keep listening when the screen is off, and understand passages without sending your books to a server.</p>
+          <div>
+            <p class="eyebrow">Made for the way you read now</p>
+            <h2>More than pages.</h2>
+          </div>
+          <p>Coral Reader now helps you shape your library, keep listening when the screen is off, and understand
+            passages without sending your books to a server.</p>
         </div>
         <div class="story-grid">
           <article class="story">
-            <div><span class="story-number">01</span><div class="story-icon" aria-hidden="true">⌘</div></div>
-            <div><h3>Categories that fit your library</h3><p>Create your own categories, place a book in more than one, and filter instantly alongside In Progress and Finished.</p><small>Local · Flexible · Persistent</small></div>
+            <div><span class="story-number">01</span>
+              <div class="story-icon" aria-hidden="true">⌘</div>
+            </div>
+            <div>
+              <h3>Categories that fit your library</h3>
+              <p>Create your own categories, place a book in more than one, and filter instantly alongside In Progress
+                and Finished.</p><small>Local · Flexible · Persistent</small>
+            </div>
           </article>
           <article class="story">
-            <div><span class="story-number">02</span><div class="story-icon" aria-hidden="true">▶</div></div>
-            <div><h3>Read Aloud, even in the background</h3><p>Listen with on-device voices, synchronized highlighting, automatic page follow, adjustable speed, and a player that stays with you.</p><small>On device · Voice &amp; speed controls</small></div>
+            <div><span class="story-number">02</span>
+              <div class="story-icon" aria-hidden="true">▶</div>
+            </div>
+            <div>
+              <h3>Read Aloud, even in the background</h3>
+              <p>Listen with on-device voices, synchronized highlighting, automatic page follow, adjustable speed, and a
+                player that stays with you.</p><small>On device · Voice &amp; speed controls</small>
+            </div>
           </article>
           <article class="story">
-            <div><span class="story-number">03</span><div class="story-icon" aria-hidden="true">文</div></div>
-            <div><h3>Translation without leaving the page</h3><p>Select text for in-place English and Hebrew translation. Download models once, then translate offline without sharing book text.</p><small>Offline · English ↔ Hebrew · Private</small></div>
+            <div><span class="story-number">03</span>
+              <div class="story-icon" aria-hidden="true">文</div>
+            </div>
+            <div>
+              <h3>Translation without leaving the page</h3>
+              <p>Select text for in-place English and Hebrew translation. Download models once, then translate offline
+                without sharing book text.</p><small>Offline · English ↔ Hebrew · Private</small>
+            </div>
           </article>
         </div>
       </div>
@@ -192,16 +635,44 @@
     <section class="feature-band" id="features">
       <div class="wrap">
         <div class="section-head">
-          <div><p class="eyebrow">The complete reader</p><h2>Your rhythm, preserved.</h2></div>
-          <p>From a one-handed page turn to a long reading streak, the small details stay out of the way and keep you in the book.</p>
+          <div>
+            <p class="eyebrow">The complete reader</p>
+            <h2>Your rhythm, preserved.</h2>
+          </div>
+          <p>From a one-handed page turn to a long reading streak, the small details stay out of the way and keep you in
+            the book.</p>
         </div>
         <div class="feature-list">
-          <article class="feature-row"><span class="icon" aria-hidden="true">↔</span><h3>Page turning your way</h3><p>Choose tap, swipe, or both, with horizontal and vertical directions, smooth paginated reading, and RTL-aware navigation.</p></article>
-          <article class="feature-row"><span class="icon" aria-hidden="true">Aa</span><h3>Deep reading controls</h3><p>Fine-tune fonts, size, margins, line height, letter spacing, alignment, brightness, themes, and screen rotation.</p></article>
-          <article class="feature-row"><span class="icon" aria-hidden="true">✎</span><h3>Highlights, notes, and footnotes</h3><p>Keep important passages, add your own thoughts, and open footnotes in place without losing your reading position.</p></article>
-          <article class="feature-row"><span class="icon" aria-hidden="true">◔</span><h3>Progress and reading stats</h3><p>Resume every book exactly where you stopped, follow chapter progress, and see time, pages, finished books, and reading streaks.</p></article>
-          <article class="feature-row"><span class="icon" aria-hidden="true">◫</span><h3>A library built for scanning</h3><p>Switch between grid and list views, search your collection, see rich cover art, and filter by reading state or category.</p></article>
-          <article class="feature-row"><span class="icon" aria-hidden="true">אב</span><h3>English and Hebrew</h3><p>Use the full app in English or Hebrew with right-to-left layouts, direction-aware controls, and mixed-script reading support.</p></article>
+          <article class="feature-row"><span class="icon" aria-hidden="true">↔</span>
+            <h3>Page turning your way</h3>
+            <p>Choose tap, swipe, or both, with horizontal and vertical directions, smooth paginated reading, and
+              RTL-aware navigation.</p>
+          </article>
+          <article class="feature-row"><span class="icon" aria-hidden="true">Aa</span>
+            <h3>Deep reading controls</h3>
+            <p>Fine-tune fonts, size, margins, line height, letter spacing, alignment, brightness, themes, and screen
+              rotation.</p>
+          </article>
+          <article class="feature-row"><span class="icon" aria-hidden="true">✎</span>
+            <h3>Highlights, notes, and footnotes</h3>
+            <p>Keep important passages, add your own thoughts, and open footnotes in place without losing your reading
+              position.</p>
+          </article>
+          <article class="feature-row"><span class="icon" aria-hidden="true">◔</span>
+            <h3>Progress and reading stats</h3>
+            <p>Resume every book exactly where you stopped, follow chapter progress, and see time, pages, finished
+              books, and reading streaks.</p>
+          </article>
+          <article class="feature-row"><span class="icon" aria-hidden="true">◫</span>
+            <h3>A library built for scanning</h3>
+            <p>Switch between grid and list views, search your collection, see rich cover art, and filter by reading
+              state or category.</p>
+          </article>
+          <article class="feature-row"><span class="icon" aria-hidden="true">אב</span>
+            <h3>English and Hebrew</h3>
+            <p>Use the full app in English or Hebrew with right-to-left layouts, direction-aware controls, and
+              mixed-script reading support.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -209,14 +680,21 @@
     <section class="shots" id="preview">
       <div class="wrap">
         <div class="section-head">
-          <div><p class="eyebrow">Inside Coral Reader</p><h2>Quiet by design.</h2></div>
+          <div>
+            <p class="eyebrow">Inside Coral Reader</p>
+            <h2>Quiet by design.</h2>
+          </div>
           <p>A warm, focused interface that gives your books the space and attention they deserve.</p>
         </div>
         <div class="shot-row">
-          <figure class="shot"><img src="assets/screenshots/ad1.webp" alt="Coral Reader library with book covers" /><span>Organize your library</span></figure>
-          <figure class="shot"><img src="assets/screenshots/ad2.webp" alt="A book open in Coral Reader" /><span>Stay with the story</span></figure>
-          <figure class="shot"><img src="assets/screenshots/ad3.webp" alt="Coral Reader typography and theme controls" /><span>Shape every page</span></figure>
-          <figure class="shot"><img src="assets/screenshots/ad4.webp" alt="Highlight and note tools in Coral Reader" /><span>Keep what matters</span></figure>
+          <figure class="shot"><img src="assets/screenshots/ad1.webp"
+              alt="Coral Reader library with book covers" /><span>Organize your library</span></figure>
+          <figure class="shot"><img src="assets/screenshots/ad2.webp" alt="A book open in Coral Reader" /><span>Stay
+              with the story</span></figure>
+          <figure class="shot"><img src="assets/screenshots/ad3.webp"
+              alt="Coral Reader typography and theme controls" /><span>Shape every page</span></figure>
+          <figure class="shot"><img src="assets/screenshots/ad4.webp"
+              alt="Highlight and note tools in Coral Reader" /><span>Keep what matters</span></figure>
         </div>
       </div>
     </section>
@@ -224,7 +702,14 @@
     <section class="privacy">
       <div class="wrap privacy-grid">
         <div class="privacy-mark" aria-hidden="true">C</div>
-        <div><p class="eyebrow">Private by default</p><h2>Your books stay yours.</h2><p>Your library lives on your device. Read Aloud uses system voices, translation runs with downloaded on-device models, and your selected passages are never sent to a translation service.</p><div class="privacy-points"><span>On-device library</span><span>Offline translation</span><span>On-device narration</span></div></div>
+        <div>
+          <p class="eyebrow">Private by default</p>
+          <h2>Your books stay yours.</h2>
+          <p>Your library lives on your device. Read Aloud uses system voices, translation runs with downloaded
+            on-device models, and your selected passages are never sent to a translation service.</p>
+          <div class="privacy-points"><span>On-device library</span><span>Offline translation</span><span>On-device
+              narration</span></div>
+        </div>
       </div>
     </section>
 
@@ -233,8 +718,12 @@
         <h2>Make room for reading.</h2>
         <p>Bring your books and documents together on Android and iOS. Read beautifully, anywhere.</p>
         <div class="store-links">
-          <a href="https://apps.apple.com/us/app/coral-reader/id6782911744" aria-label="Download Coral Reader on the App Store"><img src="assets/app-store-badge.svg" alt="Download on the App Store" /></a>
-          <a href="https://play.google.com/store/apps/details?id=dev.hollander.coralreader&amp;pcampaignid=web_share" aria-label="Get Coral Reader on Google Play"><img src="assets/google-play-badge.png" alt="Get it on Google Play" /></a>
+          <a href="https://apps.apple.com/us/app/coral-reader/id6782911744"
+            aria-label="Download Coral Reader on the App Store"><img src="assets/app-store-badge.svg"
+              alt="Download on the App Store" /></a>
+          <a href="https://play.google.com/store/apps/details?id=dev.hollander.coralreader&amp;pcampaignid=web_share"
+            aria-label="Get Coral Reader on Google Play"><img src="assets/google-play-badge.png"
+              alt="Get it on Google Play" /></a>
         </div>
       </div>
     </section>
@@ -243,8 +732,10 @@
   <footer>
     <div class="wrap">
       <p>Coral Reader · Read beautifully. Anywhere.</p>
-      <div class="links"><a href="legal/privacy-policy.html">Privacy</a><a href="legal/terms-of-use.html">Terms</a><a href="legal/support.html">Support</a><a href="BRANDING.md">Branding</a></div>
+      <div class="links"><a href="legal/privacy-policy.html">Privacy</a><a href="legal/terms-of-use.html">Terms</a><a
+          href="legal/support.html">Support</a><a href="BRANDING.md">Branding</a></div>
     </div>
   </footer>
 </body>
+
 </html>
