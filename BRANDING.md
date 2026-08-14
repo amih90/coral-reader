@@ -14,8 +14,8 @@
 
 **Coral Reader** pairs an open book with the organic branches of a coral reef — a
 symbol of growth, depth, and discovery. Just as a reef builds something vast from
-many small pieces, Coral Reader brings your whole reading life together: EPUB books
-and PDF documents, on Android and iOS, in one warm and welcoming place.
+many small pieces, Coral Reader brings your whole reading life together: books and
+documents across many formats, on Android and iOS, in one warm and welcoming place.
 
 The warm coral-orange palette is energetic and inviting, while the clean book mark
 keeps the brand grounded in what the app is all about — reading.
@@ -75,7 +75,7 @@ wide layouts.
 ## 📐 Logo Anatomy
 
 - **Coral branch** — growth, depth, and the joy of discovery.
-- **Open book** — the heart of the product: reading EPUB and PDF.
+- **Open book** — the heart of the product: reading, listening, and understanding.
 - **Warm gradient** — approachable, energetic, and modern.
 
 ---
@@ -84,6 +84,6 @@ wide layouts.
 
 <img src="assets/logo.jpg" alt="Coral Reader" width="140" />
 
-**Coral Reader** · Available on Android & iOS · EPUB & PDF
+**Coral Reader** · Available on Android & iOS · Read, listen, and understand
 
 </div>

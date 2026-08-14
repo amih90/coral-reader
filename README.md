@@ -6,11 +6,11 @@
 
 ### Your books and documents, beautifully read — anywhere.
 
-**A modern, distraction-free reader for EPUB and PDF, built for Android and iOS.**
+**A private, beautifully customizable reader for EPUB, PDF, and more, built for Android and iOS.**
 
 [![Platform: Android](https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white)](#-download)
 [![Platform: iOS](https://img.shields.io/badge/iOS-000000?logo=apple&logoColor=white)](#-download)
-[![Formats: EPUB & PDF](https://img.shields.io/badge/Formats-EPUB%20%26%20PDF-FF6B4A)](#-overview)
+[![Formats: EPUB, PDF & more](https://img.shields.io/badge/Formats-EPUB%2C%20PDF%20%26%20more-FF6B4A)](#-overview)
 
 </div>
 
@@ -19,16 +19,16 @@
 ## 📖 Overview
 
 **Coral Reader** turns your phone and tablet into a personal library. Import your
-own **EPUB** books and **PDF** documents, and read them with a clean, paginated,
-fully customizable experience — then pick up right where you left off on any of
-your devices.
+own **EPUB, PDF, Markdown, text, HTML, FB2, DOCX, and ODT** documents, and read
+them with a clean, paginated, fully customizable experience — then pick up right
+where you left off.
 
 Whether you're settling in with a novel, working through a textbook, or reviewing
 a PDF report, Coral Reader keeps the focus on the words. No clutter, no noise —
 just comfortable, elegant reading.
 
-> **Two formats, one reader.** Coral Reader natively supports both **EPUB** and
-> **PDF**, so your entire reading life lives in a single, gorgeous app.
+> **Many formats, one reader.** Coral Reader converts supported documents into a
+> consistent, reflowable reading experience, so your library feels at home in one app.
 
 ---
 
@@ -60,12 +60,15 @@ or any Android phone or tablet.
 
 ## ✨ Features
 
-- 📚 **EPUB & PDF Support** — Read both EPUB books and PDF documents in one place.
-- 📂 **Library Management** — Import, organize, and browse your collection in grid or list view with rich cover art.
-- 📄 **Paginated Reader** — Smooth, horizontal page-by-page reading that feels like a real book.
+- 📚 **Broad Format Support** — Read EPUB, PDF, Markdown, text, HTML, FB2, DOCX, and ODT in one place.
+- 🗂️ **Categories & Library Filters** — Create categories, add a book to more than one, and filter alongside All, In Progress, and Finished.
+- 🔊 **Read Aloud** — Listen with on-device voices, synchronized highlighting, automatic page follow, background playback, and voice and speed controls.
+- 🌐 **Offline Translation** — Translate selected English and Hebrew text in place with downloaded on-device models. Book text never goes to a translation server.
+- 📂 **Library Management** — Import, search, organize, and browse your collection in grid or list view with rich cover art.
+- 📄 **Flexible Page Turning** — Choose tap, swipe, or both, with paginated reading and direction-aware navigation.
 - 🎨 **Reading Customization** — Choose from bundled fonts and fine-tune font size, margins, line height, letter spacing, text alignment, brightness, and color themes.
-- ✍️ **Highlights & Notes** — Mark up passages and remember what matters.
-- 📊 **Progress Tracking** — Per-book reading position, an interactive progress bar with chapter tooltips, and at-a-glance percentage in your library.
+- ✍️ **Highlights, Notes & Footnotes** — Mark passages, save thoughts, and open footnotes without losing your place.
+- 📊 **Progress & Reading Stats** — Track position, chapters, time, pages, finished books, and reading streaks.
 - 🌙 **Light, Dark & System Themes** — Read comfortably day or night.
 - 🌍 **Localization** — Full English and Hebrew support, including right-to-left (RTL) layout.
 - 🔒 **Rotation Lock** — Lock screen orientation while you read.
@@ -78,7 +81,10 @@ or any Android phone or tablet.
 
 | | |
 | --- | --- |
-| **One app, two formats** | Read EPUB and PDF without switching apps. |
+| **One app, many formats** | Read books and documents without switching apps. |
+| **Read or listen** | Continue with on-device narration and background playback. |
+| **Understand in place** | Translate English and Hebrew selections offline. |
+| **Your library, organized** | Create categories that match the way you collect books. |
 | **Truly cross-platform** | Native Android & iOS from a shared codebase. |
 | **Made for comfort** | Fonts, themes, spacing, and margins tuned to you. |
 | **Never lose your place** | Reliable per-book progress tracking. |
