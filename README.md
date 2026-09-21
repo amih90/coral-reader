@@ -1,16 +1,18 @@
 <div align="center">
 
-<img src="assets/logo.jpg" alt="Coral Reader logo" width="180" />
+<img src="assets/icon-512.png" alt="Coral Reader icon" width="160" />
 
 # Coral Reader
 
-### Your books and documents, beautifully read — anywhere.
+### Read what you love. Learn as you go.
 
-**A private, beautifully customizable reader for EPUB, PDF, and more, built for Android and iOS.**
+**A private, beautifully customizable reader for EPUB, PDF and more, with on-device translation, vocabulary and Read Aloud. Built for Android and iOS.**
+
+🌐 **Website:** https://amih90.github.io/coral-reader/
 
 [![Platform: Android](https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white)](#-download)
 [![Platform: iOS](https://img.shields.io/badge/iOS-000000?logo=apple&logoColor=white)](#-download)
-[![Formats: EPUB, PDF & more](https://img.shields.io/badge/Formats-EPUB%2C%20PDF%20%26%20more-FF6B4A)](#-overview)
+[![Formats: EPUB, PDF & more](https://img.shields.io/badge/Formats-EPUB%2C%20PDF%20%26%20more-FF6F61)](#-overview)
 
 </div>
 
@@ -34,12 +36,16 @@ just comfortable, elegant reading.
 
 ## 📸 App Preview
 
+Real screens from Coral Reader 1.10.2 on Android (the library holds original sample books).
+
 <div align="center">
 
 | | | | |
 | :---: | :---: | :---: | :---: |
-| <img src="assets/screenshots/ad1.webp" alt="Library" width="200" /> | <img src="assets/screenshots/ad2.webp" alt="Reading view" width="200" /> | <img src="assets/screenshots/ad3.webp" alt="Reading customization" width="200" /> | <img src="assets/screenshots/ad4.webp" alt="Highlights and notes" width="200" /> |
-| **Your library** | **Your book, your rhythm** | **Read exactly your way** | **Highlight, note, remember** |
+| <img src="assets/screens/library.webp" alt="Library" width="200" /> | <img src="assets/screens/reader-english.webp" alt="Reading view" width="200" /> | <img src="assets/screens/reader-dark.webp" alt="Dark theme, right-to-left" width="200" /> | <img src="assets/screens/display-settings.webp" alt="Display settings" width="200" /> |
+| **Your library** | **Page by page, like a book** | **Light, sepia or dark · right-to-left** | **Read exactly your way** |
+| <img src="assets/screens/translate.webp" alt="On-device translation" width="200" /> | <img src="assets/screens/vocabulary.webp" alt="Vocabulary with context" width="200" /> | <img src="assets/screens/practice.webp" alt="Practice quiz" width="200" /> | <img src="assets/screens/read-aloud.webp" alt="Read Aloud player" width="200" /> |
+| **Long-press. Translate.** | **Every word keeps its sentence** | **Practice offline** | **Or just listen (Coral Pro)** |
 
 </div>
 
@@ -114,8 +120,8 @@ Looking for logos, colors, and brand assets? See the **[Branding Guide](BRANDING
 
 <div align="center">
 
-<img src="assets/logo.jpg" alt="Coral Reader" width="120" />
+<img src="assets/icon-512.png" alt="Coral Reader" width="110" />
 
-**Coral Reader** — Read beautifully. Anywhere.
+**Coral Reader** — Read what you love. Learn as you go.
 
 </div>

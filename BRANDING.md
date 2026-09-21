@@ -4,7 +4,7 @@
 
 # Coral Reader — Branding Guide
 
-**Read beautifully. Anywhere.**
+**Read what you love. Learn as you go.**
 
 </div>
 
@@ -31,7 +31,7 @@ coral-orange gradient. Use this as the main brand symbol.
 
 <img src="assets/logo.jpg" alt="Primary logo" width="200" />
 
-`assets/logo.jpg`
+`assets/logo.jpg` · app icon: `assets/icon-512.png`
 
 ### Banner
 
@@ -46,17 +46,23 @@ wide layouts.
 
 ## 🌈 Color Palette
 
+The palette used by the app and by this site. Machine-readable tokens (gradients, type, radii,
+motion) live in [`assets/design-tokens.json`](assets/design-tokens.json).
+
 | Swatch | Name | Hex | Usage |
 | :---: | --- | --- | --- |
-| 🟧 | Coral | `#FF6B4A` | Primary brand color, gradients, accents |
-| 🟠 | Coral Deep | `#F0502E` | Gradient end, pressed states |
-| ⬜ | Coral White | `#FFFFFF` | Logo mark, text on coral |
-| ⬛ | Ink | `#1A1A1A` | Primary text on light backgrounds |
+| 🟥 | Coral 500 | `#FF6F61` | Primary brand color, CTAs, accents |
+| 🟥 | Coral 600 | `#E8544E` | Gradient end, pressed states |
+| 🟥 | Coral 700 | `#D4443E` | Deep accent, links on light |
+| 🟧 | Peach | `#FFB3A7` | Gradient highlight in headlines |
+| ⬜ | Cream | `#F6F1E8` | Text on dark, light surfaces |
+| ⬛ | Zinc 950 | `#09090B` | Ink, dark surfaces |
 
-> The signature gradient runs from **Coral** (`#FF6B4A`) to **Coral Deep**
-> (`#F0502E`), top-left to bottom-right.
+> The signature headline gradient runs from **Coral 500** to **Peach**, left to right. The dark
+> marketing background is a warm charcoal (`#221214` → `#120C0D` → `#09090B`) with coral glows.
 
----
+**Type:** Plus Jakarta Sans (UI and marketing, SIL OFL 1.1) and Frank Ruhl Libre (the reader serif).
+
 
 ## ✍️ Usage Guidelines
 

@@ -1,741 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coral Reader — Read, listen, and understand</title>
-  <meta name="description"
-    content="Coral Reader is a private, beautifully customizable reader for EPUB, PDF, and more. Organize with categories, listen with Read Aloud, and translate offline on Android and iOS." />
-  <meta property="og:title" content="Coral Reader — Read, listen, and understand" />
-  <meta property="og:description"
-    content="Your books, organized your way, narrated on device, and translated offline." />
-  <meta property="og:image" content="assets/logo-banner.jpg" />
+  <title>Coral Reader — Read what you love. Learn as you go.</title>
+  <meta name="description" content="Coral Reader is a private, beautifully customizable reader for EPUB, PDF and many more formats on Android and iOS. Multi-language, right-to-left ready, with on-device translation, vocabulary practice and Read Aloud." />
+  <meta property="og:title" content="Coral Reader — Read what you love. Learn as you go." />
+  <meta property="og:description" content="Read beautifully, understand more, and keep learning anywhere. EPUB, PDF and more, on Android and iOS." />
+  <meta property="og:image" content="https://amih90.github.io/coral-reader/assets/og.jpg" />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="assets/logo.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#120C0D" />
+  <link rel="icon" type="image/png" href="assets/icon-512.png" />
+  <link rel="apple-touch-icon" href="assets/icon-512.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,500;6..72,600&amp;display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --coral: #ff6347;
-      --coral-deep: #d9472d;
-      --ink: #20201e;
-      --muted: #66645f;
-      --paper: #fbfaf7;
-      --white: #ffffff;
-      --mint: #dcefe6;
-      --blue: #dbe8f3;
-      --gold: #f6df9f;
-      --rule: #dedbd4;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: "DM Sans", sans-serif;
-      color: var(--ink);
-      background: var(--paper);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-    }
-
-    .wrap {
-      width: min(1160px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    .eyebrow {
-      color: var(--coral-deep);
-      font-size: .76rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-    }
-
-    h1,
-    h2 {
-      font-family: "Newsreader", serif;
-      font-weight: 600;
-      line-height: .98;
-      letter-spacing: 0;
-    }
-
-    .nav {
-      position: absolute;
-      inset: 0 0 auto;
-      z-index: 4;
-      padding: 22px 0;
-      color: var(--white);
-    }
-
-    .nav .wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-    }
-
-    .nav-brand img {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      font-size: .9rem;
-      font-weight: 600;
-    }
-
-    .nav-download {
-      border: 1px solid rgba(255, 255, 255, .55);
-      padding: 9px 15px;
-      border-radius: 6px;
-    }
-
-    .hero {
-      min-height: 760px;
-      color: var(--white);
-      background: var(--coral-deep);
-      position: relative;
-      overflow: hidden;
-      display: grid;
-      align-items: center;
-      padding: 118px 0 72px;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(29, 24, 21, .5), rgba(29, 24, 21, .05)), url("assets/screenshots/ad2.webp") center 35% / cover;
-      opacity: .38;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: auto 0 0;
-      height: 190px;
-      background: linear-gradient(to top, rgba(25, 20, 18, .52), transparent);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      width: min(690px, 100%);
-    }
-
-    .hero .eyebrow {
-      color: #ffd8cf;
-    }
-
-    .hero h1 {
-      font-size: clamp(4.3rem, 10vw, 8.5rem);
-      margin: 16px 0 18px;
-    }
-
-    .hero-copy {
-      font-size: clamp(1.08rem, 2vw, 1.35rem);
-      max-width: 620px;
-      color: rgba(255, 255, 255, .93);
-    }
-
-    .store-links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-      margin-top: 30px;
-    }
-
-    .store-links img {
-      display: block;
-      height: 42px;
-      width: auto;
-    }
-
-    .hero-note {
-      position: absolute;
-      z-index: 2;
-      bottom: 30px;
-      right: max(20px, calc((100% - 1160px) / 2));
-      font-size: .82rem;
-      color: rgba(255, 255, 255, .8);
-    }
-
-    section {
-      padding: 96px 0;
-    }
-
-    .section-head {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: end;
-      gap: 40px;
-      margin-bottom: 48px;
-    }
-
-    .section-head h2 {
-      font-size: clamp(2.8rem, 5vw, 4.8rem);
-      margin-top: 12px;
-    }
-
-    .section-head p {
-      color: var(--muted);
-      font-size: 1.08rem;
-      max-width: 520px;
-      justify-self: end;
-    }
-
-    .format-strip {
-      padding: 24px 0;
-      background: var(--ink);
-      color: var(--white);
-    }
-
-    .format-strip .wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .format-strip strong {
-      font-family: "Newsreader", serif;
-      font-size: 1.45rem;
-    }
-
-    .format-list {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      color: #d7d4ce;
-      font-size: .8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-
-    .stories {
-      background: var(--white);
-    }
-
-    .story-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .story {
-      min-height: 430px;
-      padding: 32px;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-    }
-
-    .story:nth-child(1) {
-      background: var(--gold);
-    }
-
-    .story:nth-child(2) {
-      background: var(--mint);
-    }
-
-    .story:nth-child(3) {
-      background: var(--blue);
-    }
-
-    .story-number {
-      font: 600 4.5rem/1 "Newsreader", serif;
-      opacity: .25;
-    }
-
-    .story-icon {
-      width: 58px;
-      height: 58px;
-      border: 1px solid rgba(32, 32, 30, .28);
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 1.55rem;
-    }
-
-    .story h3 {
-      font: 600 2rem/1.05 "Newsreader", serif;
-      margin: 24px 0 12px;
-    }
-
-    .story p {
-      color: #4f4e49;
-    }
-
-    .story small {
-      display: block;
-      margin-top: 18px;
-      font-weight: 700;
-      font-size: .73rem;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-
-    .feature-band {
-      background: var(--paper);
-    }
-
-    .feature-list {
-      border-top: 1px solid var(--rule);
-    }
-
-    .feature-row {
-      display: grid;
-      grid-template-columns: 44px 260px 1fr;
-      gap: 22px;
-      align-items: start;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .feature-row .icon {
-      font-size: 1.25rem;
-    }
-
-    .feature-row h3 {
-      font-size: 1.08rem;
-    }
-
-    .feature-row p {
-      color: var(--muted);
-      max-width: 690px;
-    }
-
-    .shots {
-      background: #252522;
-      color: var(--white);
-      overflow: hidden;
-    }
-
-    .shots .section-head p {
-      color: #aaa8a0;
-    }
-
-    .shots .eyebrow {
-      color: #ff9c86;
-    }
-
-    .shot-row {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 20px;
-      align-items: start;
-    }
-
-    .shot:nth-child(even) {
-      margin-top: 48px;
-    }
-
-    .shot img {
-      display: block;
-      width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 22px 50px rgba(0, 0, 0, .28);
-    }
-
-    .shot span {
-      display: block;
-      margin-top: 13px;
-      color: #d8d5cf;
-      font-size: .88rem;
-    }
-
-    .privacy {
-      background: var(--mint);
-    }
-
-    .privacy-grid {
-      display: grid;
-      grid-template-columns: .85fr 1.15fr;
-      gap: 70px;
-      align-items: center;
-    }
-
-    .privacy-mark {
-      aspect-ratio: 1;
-      border: 1px solid rgba(32, 32, 30, .25);
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font: 600 clamp(4rem, 10vw, 8rem)/1 "Newsreader", serif;
-      color: #2d6750;
-    }
-
-    .privacy h2 {
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      margin: 14px 0 24px;
-    }
-
-    .privacy p {
-      color: #41594f;
-      font-size: 1.08rem;
-      max-width: 560px;
-    }
-
-    .privacy-points {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-      font-size: .85rem;
-      font-weight: 700;
-    }
-
-    .cta {
-      text-align: center;
-      background: var(--coral);
-      color: var(--white);
-    }
-
-    .cta h2 {
-      font-size: clamp(3.8rem, 8vw, 7.5rem);
-      max-width: 850px;
-      margin: 0 auto 20px;
-    }
-
-    .cta p {
-      max-width: 590px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-    }
-
-    .cta .store-links {
-      justify-content: center;
-    }
-
-    footer {
-      padding: 34px 0;
-      background: var(--ink);
-      color: #b9b6af;
-      font-size: .85rem;
-    }
-
-    footer .wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    footer .links {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 820px) {
-      .nav-links a:not(.nav-download) {
-        display: none;
-      }
-
-      .hero {
-        min-height: 680px;
-      }
-
-      .hero-note {
-        display: none;
-      }
-
-      .section-head,
-      .privacy-grid {
-        grid-template-columns: 1fr;
-        gap: 22px;
-      }
-
-      .section-head p {
-        justify-self: start;
-      }
-
-      .story-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .story {
-        min-height: 330px;
-      }
-
-      .feature-row {
-        grid-template-columns: 36px 1fr;
-      }
-
-      .feature-row p {
-        grid-column: 2;
-      }
-
-      .shot-row {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .privacy-mark {
-        width: min(280px, 75vw);
-      }
-    }
-
-    @media (max-width: 520px) {
-      .wrap {
-        width: min(100% - 28px, 1160px);
-      }
-
-      section {
-        padding: 72px 0;
-      }
-
-      .hero h1 {
-        font-size: 4.15rem;
-      }
-
-      .format-strip .wrap {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .shot-row {
-        gap: 12px;
-      }
-
-      .shot:nth-child(even) {
-        margin-top: 28px;
-      }
-
-      footer .wrap {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-    }
+    :root{
+      --coral:#FF6F61;--coral-600:#E8544E;--coral-700:#D4443E;--coral-100:#FFE8E5;--peach:#FFB3A7;
+      --cream:#F6F1E8;--paper:#FBF8F3;--white:#fff;--ink:#09090B;--ink-2:#18181B;--zinc-4:#A1A1AA;--zinc-6:#52525B;
+      --violet:#8B5CF6;--green:#16A34A;--amber:#D97706;
+      --font:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      --serif:"Frank Ruhl Libre",Georgia,"Times New Roman",serif;
+      --r:22px;--shadow:0 30px 70px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);color:var(--ink);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    img,video{max-width:100%;height:auto;display:block}
+    .wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}
+    .eyebrow{color:var(--coral-600);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.16em}
+    .dark .eyebrow{color:var(--coral)}
+    h1,h2,h3{font-weight:700;letter-spacing:-.03em;line-height:1.04}
+    h2{font-size:clamp(2.2rem,4.6vw,3.6rem)}
+    .em{background:linear-gradient(90deg,var(--coral) 0%,var(--peach) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lede{color:var(--zinc-6);font-size:1.12rem;max-width:620px}
+    .dark .lede{color:rgba(246,241,232,.76)}
+    section{padding:clamp(72px,9vw,120px) 0}
+    .dark{background:radial-gradient(70% 55% at 85% 8%,rgba(255,111,97,.42) 0%,rgba(255,111,97,0) 60%),radial-gradient(60% 45% at 8% 92%,rgba(232,84,78,.30) 0%,rgba(232,84,78,0) 60%),linear-gradient(165deg,#221214 0%,#120C0D 48%,#09090B 100%);color:var(--white);position:relative;overflow:hidden}
+    .dark::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:26px 26px}
+    .dark>*{position:relative}
+    /* nav */
+    .nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(18,12,13,.72);border-bottom:1px solid rgba(255,255,255,.08);color:var(--white)}
+    .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em}
+    .brand img{width:34px;height:34px;border-radius:9px}
+    .brand span span{color:var(--peach)}
+    .nav-links{display:flex;align-items:center;gap:26px;font-size:.92rem;font-weight:600}
+    .nav-links a{opacity:.85}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;font-weight:700;font-size:.95rem;transition:transform .2s,box-shadow .2s}
+    .btn.coral{background:linear-gradient(135deg,var(--coral) 0%,var(--coral-600) 100%);color:#fff;box-shadow:0 14px 34px rgba(232,84,78,.4)}
+    .btn.coral:hover{transform:translateY(-2px);box-shadow:0 20px 44px rgba(232,84,78,.5)}
+    .btn.ghost{border:1px solid rgba(255,255,255,.3);color:#fff}
+    /* hero */
+    .hero{padding:clamp(56px,8vw,110px) 0 0}
+    .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+    .hero h1{font-size:clamp(2.9rem,6.4vw,5.4rem);margin:18px 0 22px}
+    .hero .lede{font-size:clamp(1.05rem,1.6vw,1.3rem);max-width:560px}
+    .stores{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:30px}
+    .stores img{height:48px;width:auto;border-radius:8px}
+    .trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;font-size:.85rem;font-weight:600;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:var(--cream);backdrop-filter:blur(12px)}
+    .chip.solid{background:rgba(255,255,255,.96);color:var(--ink);border-color:transparent}
+    .chip.coral{background:linear-gradient(135deg,var(--coral),var(--coral-600));color:#fff;border-color:rgba(255,255,255,.35)}
+    .chip .dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 4px rgba(74,222,128,.25)}
+    .he{direction:rtl;unicode-bidi:isolate}
+    .stage{position:relative;height:clamp(640px,64vw,820px)}
+    .phone{position:absolute;border-radius:40px;background:#141416;padding:9px;box-shadow:var(--shadow),0 0 0 2px rgba(255,255,255,.08)}
+    .phone::before{content:"";position:absolute;left:8%;right:8%;top:8%;bottom:-2%;border-radius:20%;background:linear-gradient(160deg,var(--coral),var(--coral-700));filter:blur(40px);opacity:.45;z-index:-1}
+    .phone img{border-radius:32px;width:100%;height:auto}
+    .stage .p1{width:min(330px,54%);left:18%;top:0;animation:floaty 6s ease-in-out infinite}
+    .stage .cover{position:absolute;width:26%;border-radius:8px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.14);animation:floaty 5s ease-in-out infinite}
+    .stage .c1{left:-2%;top:44%;transform:rotate(-9deg);animation-delay:.6s}
+    .stage .c2{right:0;top:12%;transform:rotate(8deg);animation-delay:1.4s}
+    .stage .f1{position:absolute;left:0;top:14%}
+    .stage .f2{position:absolute;right:0;bottom:30%}
+    .stage .f3{position:absolute;left:6%;bottom:18%}
+    @keyframes floaty{0%,100%{translate:0 0}50%{translate:0 -10px}}
+    .strip{padding:20px 0;background:var(--ink);color:var(--cream);position:relative}
+    .strip .wrap{display:flex;gap:18px 28px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .strip strong{font-size:1.05rem}
+    .formats{display:flex;gap:10px 22px;flex-wrap:wrap;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--zinc-4)}
+    /* section heads */
+    .head{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:48px}
+    .head h2{margin-top:12px}
+    .head .lede{justify-self:end}
+    /* pillars */
+    .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .card{background:var(--white);border:1px solid rgba(9,9,11,.06);border-radius:var(--r);padding:28px;box-shadow:0 20px 50px rgba(9,9,11,.06);display:flex;flex-direction:column;gap:14px;overflow:hidden}
+    .card h3{font-size:1.45rem}
+    .card p{color:var(--zinc-6)}
+    .card .shot{margin:10px -28px -28px;padding:26px 44px 0;max-height:400px;overflow:hidden;background:linear-gradient(180deg,rgba(255,111,97,.10),rgba(255,111,97,.02))}
+    .card .shot img{border-radius:28px 28px 0 0;height:auto;box-shadow:0 -10px 40px rgba(9,9,11,.12);border:6px solid #141416;border-bottom:0}
+    .tag{display:inline-flex;gap:8px;align-items:center;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-600)}
+    /* reading */
+    .themes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:end;margin:48px 0 56px}
+    .themes .phone{position:relative;width:min(100%,300px);margin:0 auto}
+    .themes figcaption{text-align:center;margin-top:16px;color:rgba(246,241,232,.7);font-weight:600;font-size:.95rem}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .feat{padding:22px 24px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+    .feat h3{font-size:1.08rem;margin-bottom:6px}
+    .feat p{color:rgba(246,241,232,.72);font-size:.95rem}
+    /* journey */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+    .step{position:relative;padding-top:8px}
+    .step::before{counter-increment:s;content:counter(s,decimal-leading-zero);font-weight:800;font-size:3.4rem;letter-spacing:-.04em;color:var(--coral-100);position:absolute;right:0;top:-20px;line-height:1}
+    .step h3{font-size:1.35rem;margin:12px 0 8px}
+    .step p{color:var(--zinc-6)}
+    .step .phone{position:relative;width:min(100%,280px);margin:22px auto 0}
+    .quote{font-family:var(--serif);font-size:1.15rem;color:var(--ink);background:var(--coral-100);padding:12px 16px;border-radius:12px;display:inline-block;margin-top:10px}
+    /* reel */
+    .reel{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+    .reel .phone{position:relative;width:min(100%,340px);margin:0 auto;padding:10px;border-radius:44px}
+    .reel video{border-radius:36px;aspect-ratio:9/16;background:#000;width:100%}
+    .list{display:grid;gap:12px;margin-top:22px}
+    .list li{list-style:none;display:flex;gap:12px;align-items:flex-start;color:rgba(246,241,232,.82)}
+    .list li b{color:#fff}
+    .list .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--coral);color:var(--ink);font-weight:800;font-size:.8rem;display:grid;place-items:center;margin-top:2px}
+    /* privacy */
+    .privacy{background:var(--cream)}
+    .privacy .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+    .points{display:grid;gap:14px;margin-top:24px}
+    .points li{list-style:none;display:flex;gap:12px;align-items:flex-start;color:var(--zinc-6)}
+    .points li::before{content:"✓";flex:none;width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;font-weight:800;display:grid;place-items:center;font-size:.85rem}
+    .privacy .phone{position:relative;width:min(100%,300px);margin:0 auto}
+    /* pro */
+    .pro .card{flex-direction:row;align-items:center;gap:32px;padding:36px 40px}
+    .pro .card>div{flex:1}
+    .pro ul{display:flex;gap:10px 14px;flex-wrap:wrap;margin-top:16px}
+    .pro li{list-style:none;padding:8px 14px;border-radius:999px;background:var(--coral-100);color:var(--coral-700);font-weight:700;font-size:.85rem}
+    .pro .phone{position:relative;width:min(100%,220px);flex:none}
+    /* cta */
+    .cta{text-align:center}
+    .cta h2{font-size:clamp(2.6rem,6vw,4.6rem);max-width:820px;margin:16px auto 18px}
+    .cta .lede{margin:0 auto}
+    .cta .stores{justify-content:center}
+    .fine{margin-top:22px;font-size:.85rem;color:rgba(246,241,232,.55);max-width:720px;margin-inline:auto}
+    footer{padding:34px 0;background:var(--ink);color:var(--zinc-4);font-size:.88rem}
+    footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    footer .links{display:flex;gap:20px;flex-wrap:wrap}
+    footer a:hover{color:#fff}
+    @media (max-width:900px){
+      .nav-links a:not(.btn){display:none}
+      .hero .wrap{grid-template-columns:1fr}
+      .stage{height:clamp(520px,128vw,720px);margin-top:24px}
+      .stage .p1{left:20%;width:60%}
+      .head,.reel,.privacy .wrap{grid-template-columns:1fr;gap:24px}
+      .head .lede{justify-self:start}
+      .pillars,.themes,.grid,.steps{grid-template-columns:1fr}
+      .themes .phone{width:min(100%,260px)}
+      .pro .card{flex-direction:column;align-items:stretch}
+      .pro .phone{margin:0 auto}
+    }
+    @media (max-width:520px){.wrap{width:min(100% - 28px,1180px)} .stage .f2{display:none} .hero h1{font-size:2.55rem} h2{font-size:2rem} .stores img{height:42px}}
+    @media (prefers-reduced-motion:reduce){.stage *{animation:none !important}}
   </style>
 </head>
-
 <body>
   <nav class="nav" aria-label="Main navigation">
     <div class="wrap">
-      <a class="nav-brand" href="#top"><img src="assets/logo.jpg" alt="" />Coral Reader</a>
+      <a class="brand" href="#top"><img src="assets/icon-512.webp" alt="" /><span>Coral <span>Reader</span></span></a>
       <div class="nav-links">
-        <a href="#new">What's new</a>
-        <a href="#features">Features</a>
-        <a href="#preview">Preview</a>
-        <a class="nav-download" href="#download">Download</a>
+        <a href="#reading">Reading</a>
+        <a href="#learn">Learn</a>
+        <a href="#reel">Watch</a>
+        <a href="#privacy">Privacy</a>
+        <a class="btn coral" href="#download">Get the app</a>
       </div>
     </div>
   </nav>
 
-  <header class="hero" id="top">
+  <header class="hero dark" id="top">
     <div class="wrap">
-      <div class="hero-content">
-        <p class="eyebrow">Your private reading companion</p>
-        <h1>Coral Reader</h1>
-        <p class="hero-copy">Read, listen, and understand. Build a library that feels like yours, with on-device
-          narration, offline translation, and precise control over every page.</p>
-        <div class="store-links">
-          <a href="https://apps.apple.com/us/app/coral-reader/id6782911744"
-            aria-label="Download Coral Reader on the App Store"><img src="assets/app-store-badge.svg"
-              alt="Download on the App Store" /></a>
-          <a href="https://play.google.com/store/apps/details?id=dev.hollander.coralreader&amp;pcampaignid=web_share"
-            aria-label="Get Coral Reader on Google Play"><img src="assets/google-play-badge.png"
-              alt="Get it on Google Play" /></a>
+      <div>
+        <p class="eyebrow">Reader · Books, documents and the words you learn</p>
+        <h1>Read what you love.<br /><span class="em">Learn as you go.</span></h1>
+        <p class="lede">Read beautifully, understand more, and keep learning anywhere. Every format you read, in one comfortable reader you can shape to your eyes, with private, on-device translation.</p>
+        <div class="stores">
+          <a href="https://apps.apple.com/us/app/coral-reader/id6782911744" aria-label="Download Coral Reader on the App Store"><img src="assets/app-store-badge.svg" alt="Download on the App Store" /></a>
+          <a href="https://play.google.com/store/apps/details?id=dev.hollander.coralreader&amp;pcampaignid=web_share" aria-label="Get Coral Reader on Google Play"><img src="assets/google-play-badge.png" alt="Get it on Google Play" /></a>
         </div>
+        <div class="trust"><span class="chip"><span class="dot"></span>Your books stay on your device</span><span class="chip">Android &amp; iOS</span><span class="chip">Multi-language · RTL ready</span></div>
+      </div>
+      <div class="stage" aria-hidden="true">
+        <div class="phone p1"><img src="assets/screens/library.webp" alt="" width="720" height="1513" /></div>
+        <div class="cover c1"><img src="assets/covers/ember-road.webp" alt="" /></div>
+        <div class="cover c2"><img src="assets/covers/bakayitz-shebo-chazarta.webp" alt="" /></div>
+        <span class="chip solid f1">EPUB · PDF · DOCX · more</span>
+        <span class="chip coral f2">On-device translation</span>
+        <span class="chip f3">Read Aloud · Coral Pro</span>
       </div>
     </div>
-    <p class="hero-note">Available for iPhone, iPad, Android phones, and tablets</p>
+    <div class="strip" aria-label="Supported document formats" style="margin-top:clamp(40px,6vw,80px)">
+      <div class="wrap"><strong>One home for every read.</strong>
+        <div class="formats"><span>EPUB</span><span>PDF</span><span>Markdown</span><span>Text</span><span>HTML</span><span>FB2</span><span>DOCX</span><span>ODT</span></div>
+      </div>
+    </div>
   </header>
 
-  <div class="format-strip" aria-label="Supported document formats">
-    <div class="wrap">
-      <strong>One home for every read.</strong>
-      <div class="format-list">
-        <span>EPUB</span><span>PDF</span><span>Markdown</span><span>Text</span><span>HTML</span><span>FB2</span><span>DOCX</span><span>ODT</span>
-      </div>
-    </div>
-  </div>
-
   <main>
-    <section class="stories" id="new">
+    <section id="pillars">
       <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">Made for the way you read now</p>
-            <h2>More than pages.</h2>
-          </div>
-          <p>Coral Reader now helps you shape your library, keep listening when the screen is off, and understand
-            passages without sending your books to a server.</p>
+        <div class="head">
+          <div><p class="eyebrow">Three things, done well</p><h2>Read. Understand. <span class="em">Listen.</span></h2></div>
+          <p class="lede">Bring books and documents together in one comfortable reader, understand selected text with private on-device translation, and keep reading and understanding in one focused experience.</p>
         </div>
-        <div class="story-grid">
-          <article class="story">
-            <div><span class="story-number">01</span>
-              <div class="story-icon" aria-hidden="true">⌘</div>
-            </div>
-            <div>
-              <h3>Categories that fit your library</h3>
-              <p>Create your own categories, place a book in more than one, and filter instantly alongside In Progress
-                and Finished.</p><small>Local · Flexible · Persistent</small>
-            </div>
-          </article>
-          <article class="story">
-            <div><span class="story-number">02</span>
-              <div class="story-icon" aria-hidden="true">▶</div>
-            </div>
-            <div>
-              <h3>Read Aloud, even in the background</h3>
-              <p>Listen with on-device voices, synchronized highlighting, automatic page follow, adjustable speed, and a
-                player that stays with you.</p><small>On device · Voice &amp; speed controls</small>
-            </div>
-          </article>
-          <article class="story">
-            <div><span class="story-number">03</span>
-              <div class="story-icon" aria-hidden="true">文</div>
-            </div>
-            <div>
-              <h3>Translation without leaving the page</h3>
-              <p>Select text for in-place English and Hebrew translation. Download models once, then translate offline
-                without sharing book text.</p><small>Offline · English ↔ Hebrew · Private</small>
-            </div>
-          </article>
+        <div class="pillars">
+          <article class="card"><span class="tag">Library</span><h3>Every book and document, one library</h3><p>Import EPUB, PDF, Markdown, text, HTML, FB2, DOCX and ODT. Grid or list, your own categories, rich covers, and a progress line under every book.</p>
+            <div class="shot"><img src="assets/screens/library.webp" alt="Coral Reader library with four book covers in a grid" loading="lazy" width="720" height="1513" /></div></article>
+          <article class="card"><span class="tag">Translate</span><h3>Long-press a word, translate on device</h3><p>Pick a language pair, download its on-device model once, and translate selected passages without leaving the page. The result appears under the text; one tap saves the word.</p>
+            <div class="shot"><img src="assets/screens/translate.webp" alt="Translate sheet over a page, translating the word mountain into Hebrew" loading="lazy" width="720" height="1513" /></div></article>
+          <article class="card"><span class="tag">Read Aloud · Coral Pro</span><h3>Or just listen</h3><p>Listen to books with Read Aloud as a Coral Pro member: skip by sentence or paragraph, set the speed and a sleep timer, and jump back to reading any time.</p>
+            <div class="shot"><img src="assets/screens/read-aloud.webp" alt="Read Aloud full player with transport controls, speed and sleep timer" loading="lazy" width="720" height="1513" /></div></article>
         </div>
       </div>
     </section>
 
-    <section class="feature-band" id="features">
+    <section class="dark" id="reading">
       <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">The complete reader</p>
-            <h2>Your rhythm, preserved.</h2>
-          </div>
-          <p>From a one-handed page turn to a long reading streak, the small details stay out of the way and keep you in
-            the book.</p>
+        <div class="head">
+          <div><p class="eyebrow">Made for comfort</p><h2>Read exactly <span class="em">your way.</span></h2></div>
+          <p class="lede">Light, sepia or dark. Fonts, size, zoom, margins, line height and letter spacing, each previewed live on the page you are reading. Right-to-left scripts flow naturally, page by page.</p>
         </div>
-        <div class="feature-list">
-          <article class="feature-row"><span class="icon" aria-hidden="true">↔</span>
-            <h3>Page turning your way</h3>
-            <p>Choose tap, swipe, or both, with horizontal and vertical directions, smooth paginated reading, and
-              RTL-aware navigation.</p>
-          </article>
-          <article class="feature-row"><span class="icon" aria-hidden="true">Aa</span>
-            <h3>Deep reading controls</h3>
-            <p>Fine-tune fonts, size, margins, line height, letter spacing, alignment, brightness, themes, and screen
-              rotation.</p>
-          </article>
-          <article class="feature-row"><span class="icon" aria-hidden="true">✎</span>
-            <h3>Highlights, notes, and footnotes</h3>
-            <p>Keep important passages, add your own thoughts, and open footnotes in place without losing your reading
-              position.</p>
-          </article>
-          <article class="feature-row"><span class="icon" aria-hidden="true">◔</span>
-            <h3>Progress and reading stats</h3>
-            <p>Resume every book exactly where you stopped, follow chapter progress, and see time, pages, finished
-              books, and reading streaks.</p>
-          </article>
-          <article class="feature-row"><span class="icon" aria-hidden="true">◫</span>
-            <h3>A library built for scanning</h3>
-            <p>Switch between grid and list views, search your collection, see rich cover art, and filter by reading
-              state or category.</p>
-          </article>
-          <article class="feature-row"><span class="icon" aria-hidden="true">אב</span>
-            <h3>English and Hebrew</h3>
-            <p>Use the full app in English or Hebrew with right-to-left layouts, direction-aware controls, and
-              mixed-script reading support.</p>
-          </article>
+        <div class="themes">
+          <figure><div class="phone"><img src="assets/screens/reader-english.webp" alt="A light reading page in Coral Reader" loading="lazy" width="720" height="1513" /></div><figcaption>Light · Frank Ruhl Libre</figcaption></figure>
+          <figure><div class="phone"><img src="assets/screens/reader-sepia.webp" alt="A sepia reading page in Hebrew, right to left" loading="lazy" width="720" height="1513" /></div><figcaption>Sepia · right-to-left, handled natively</figcaption></figure>
+          <figure><div class="phone"><img src="assets/screens/reader-dark.webp" alt="A dark reading page in Hebrew" loading="lazy" width="720" height="1513" /></div><figcaption>Dark · paged, like a printed book</figcaption></figure>
+        </div>
+        <div class="grid">
+          <div class="feat"><h3>Scroll, Paged or Mixed</h3><p>Read in one continuous scroll, turn discrete pages, or scroll to read and turn a page from the edge. Flip horizontally, vertically or both.</p></div>
+          <div class="feat"><h3>Type set your way</h3><p>Bundled fonts for many scripts, font size and zoom, margins, line height, letter spacing, natural or justified text, brightness and rotation lock.</p></div>
+          <div class="feat"><h3>Chapters, bookmarks, search</h3><p>Jump by chapter with page numbers, drop bookmarks as anchors to return to the exact page, and search inside the book.</p></div>
+          <div class="feat"><h3>Never lose your place</h3><p>Every book remembers its position. A progress bar with chapter tooltips shows where you are, and Book info keeps chapter and percent at a glance.</p></div>
+          <div class="feat"><h3>Highlights &amp; notes</h3><p>Highlight in yellow, blue or pink, keep notes, and open footnotes in place.</p></div>
+          <div class="feat"><h3>Multi-language</h3><p>Books in any script, right-to-left layouts and direction-aware controls, an app interface in your language, and translation between the languages you read. Reading stats and streaks keep every page counting.</p></div>
         </div>
       </div>
     </section>
 
-    <section class="shots" id="preview">
+    <section id="learn">
       <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">Inside Coral Reader</p>
-            <h2>Quiet by design.</h2>
-          </div>
-          <p>A warm, focused interface that gives your books the space and attention they deserve.</p>
+        <div class="head">
+          <div><p class="eyebrow">Stay in the story</p><h2>The word journey, <span class="em">inside the book.</span></h2></div>
+          <p class="lede">Leaving a book to look up words breaks reading flow. Coral Reader turns reading moments into learning moments without leaving the page.</p>
         </div>
-        <div class="shot-row">
-          <figure class="shot"><img src="assets/screenshots/ad1.webp"
-              alt="Coral Reader library with book covers" /><span>Organize your library</span></figure>
-          <figure class="shot"><img src="assets/screenshots/ad2.webp" alt="A book open in Coral Reader" /><span>Stay
-              with the story</span></figure>
-          <figure class="shot"><img src="assets/screenshots/ad3.webp"
-              alt="Coral Reader typography and theme controls" /><span>Shape every page</span></figure>
-          <figure class="shot"><img src="assets/screenshots/ad4.webp"
-              alt="Highlight and note tools in Coral Reader" /><span>Keep what matters</span></figure>
+        <div class="steps">
+          <article class="step"><span class="tag">Translate</span><h3>Long-press. Translate.</h3><p>Understand selected text with private, on-device translation, in the language pair you choose, once its model is downloaded.</p><span class="quote">mountain → <span class="he">ההר</span></span>
+            <div class="phone"><img src="assets/screens/translate.webp" alt="Translate sheet with source English and target Hebrew" loading="lazy" width="720" height="1513" /></div></article>
+          <article class="step"><span class="tag">Save with context</span><h3>Every word keeps its sentence.</h3><p>Save translated words with reading context in your personal vocabulary: the translation, a dictionary definition, the sentence it came from and your progress.</p><span class="quote">“The mountain spoke at sunset…”</span>
+            <div class="phone"><img src="assets/screens/vocabulary.webp" alt="Vocabulary entry for the word mountain with its translation, definition and source sentence" loading="lazy" width="720" height="1513" /></div></article>
+          <article class="step"><span class="tag">Practice</span><h3>Quizzes built from your own words.</h3><p>Practice offline with adaptive quizzes, typed recall, and contextual exercises. Earn XP, keep a streak, and watch mastery grow.</p><span class="quote">1 / 4 · What is the word for <span class="he">ההר</span>?</span>
+            <div class="phone"><img src="assets/screens/practice.webp" alt="Multiple-choice practice card asking for the English word for a Hebrew prompt" loading="lazy" width="720" height="1513" /></div></article>
         </div>
       </div>
     </section>
 
-    <section class="privacy">
-      <div class="wrap privacy-grid">
-        <div class="privacy-mark" aria-hidden="true">C</div>
+    <section class="dark" id="reel">
+      <div class="wrap reel">
+        <div>
+          <p class="eyebrow">Fifteen seconds</p>
+          <h2>See it <span class="em">in motion.</span></h2>
+          <p class="lede">Real screens from Coral Reader on Android: the library, paged reading, three themes, display settings, on-device translation and Read Aloud.</p>
+          <ul class="list">
+            <li><span class="n">1</span><span><b>Your books, one reader.</b> Import, organize, read.</span></li>
+            <li><span class="n">2</span><span><b>Page by page, like a book.</b> Paged, Scroll or Mixed.</span></li>
+            <li><span class="n">3</span><span><b>Light. Sepia. Dark.</b> Right-to-left, handled natively.</span></li>
+            <li><span class="n">4</span><span><b>Long-press. Translate.</b> On device.</span></li>
+            <li><span class="n">5</span><span><b>Or just listen.</b> Read Aloud with Coral Pro.</span></li>
+          </ul>
+        </div>
+        <div class="phone"><video src="assets/media/reel-reading.mp4" poster="assets/media/reel-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="Coral Reader reel, 15 seconds"></video></div>
+      </div>
+    </section>
+
+    <section class="privacy" id="privacy">
+      <div class="wrap">
         <div>
           <p class="eyebrow">Private by default</p>
-          <h2>Your books stay yours.</h2>
-          <p>Your library lives on your device. Read Aloud uses system voices, translation runs with downloaded
-            on-device models, and your selected passages are never sent to a translation service.</p>
-          <div class="privacy-points"><span>On-device library</span><span>Offline translation</span><span>On-device
-              narration</span></div>
+          <h2>Your books <span class="em">stay yours.</span></h2>
+          <p class="lede">Your library lives on your device. Translation runs with downloaded on-device language models, so the passages you select are never sent to a translation service. Read Aloud uses on-device voices.</p>
+          <ul class="points">
+            <li>No account. Import a book and start reading.</li>
+            <li>Manage downloaded translation models inside the app; downloads over cellular are off by default.</li>
+            <li>Machine translation is a comprehension aid, not a professional translation.</li>
+          </ul>
         </div>
+        <div class="phone"><img src="assets/screens/translation-models.webp" alt="Manage Translation Models screen with English and Hebrew downloaded" loading="lazy" width="720" height="1513" /></div>
       </div>
     </section>
 
-    <section class="cta" id="download">
+    <section class="pro" id="pro">
       <div class="wrap">
-        <h2>Make room for reading.</h2>
-        <p>Bring your books and documents together on Android and iOS. Read beautifully, anywhere.</p>
-        <div class="store-links">
-          <a href="https://apps.apple.com/us/app/coral-reader/id6782911744"
-            aria-label="Download Coral Reader on the App Store"><img src="assets/app-store-badge.svg"
-              alt="Download on the App Store" /></a>
-          <a href="https://play.google.com/store/apps/details?id=dev.hollander.coralreader&amp;pcampaignid=web_share"
-            aria-label="Get Coral Reader on Google Play"><img src="assets/google-play-badge.png"
-              alt="Get it on Google Play" /></a>
+        <article class="card">
+          <div><p class="eyebrow">Coral Pro</p><h3 style="font-size:clamp(1.6rem,3vw,2.3rem);margin:10px 0 12px">Become a Coral Reader.</h3><p>Coral Pro unlocks Read Aloud, highlights and notes, and the full reading experience. Monthly, yearly or lifetime, billed by your app store, with Restore Purchases on any new device.</p>
+            <ul><li>Read Aloud</li><li>Highlights &amp; notes</li><li>Unlimited books</li><li>All themes &amp; fonts</li><li>Support development</li></ul></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="dark cta" id="download">
+      <div class="wrap">
+        <p class="eyebrow">Free to start · Android &amp; iOS</p>
+        <h2>Make room <span class="em">for reading.</span></h2>
+        <p class="lede">Bring your books and documents together. Read beautifully, understand more, and keep learning anywhere.</p>
+        <div class="stores">
+          <a href="https://apps.apple.com/us/app/coral-reader/id6782911744" aria-label="Download Coral Reader on the App Store"><img src="assets/app-store-badge.svg" alt="Download on the App Store" /></a>
+          <a href="https://play.google.com/store/apps/details?id=dev.hollander.coralreader&amp;pcampaignid=web_share" aria-label="Get Coral Reader on Google Play"><img src="assets/google-play-badge.png" alt="Get it on Google Play" /></a>
         </div>
+        <p class="fine">Screens on this page were recorded from Coral Reader 1.10.2 on Android. Translation uses downloadable on-device language models; available language pairs depend on your device's translation engine.</p>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="wrap">
-      <p>Coral Reader · Read beautifully. Anywhere.</p>
-      <div class="links"><a href="legal/privacy-policy.html">Privacy</a><a href="legal/terms-of-use.html">Terms</a><a
-          href="legal/support.html">Support</a><a href="BRANDING.md">Branding</a></div>
+      <p>© Coral Reader · Read what you love. Learn as you go.</p>
+      <div class="links"><a href="legal/privacy-policy.html">Privacy</a><a href="legal/terms-of-use.html">Terms</a><a href="legal/support.html">Support</a><a href="BRANDING.md">Branding</a></div>
     </div>
   </footer>
 </body>
-
 </html>
