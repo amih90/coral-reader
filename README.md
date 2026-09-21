@@ -42,8 +42,8 @@ Real screens from Coral Reader 1.10.2 on Android (the library holds original sam
 
 | | | | |
 | :---: | :---: | :---: | :---: |
-| <img src="assets/screens/library.webp" alt="Library" width="200" /> | <img src="assets/screens/reader-english.webp" alt="Reading view" width="200" /> | <img src="assets/screens/reader-dark.webp" alt="Dark theme, Hebrew right to left" width="200" /> | <img src="assets/screens/display-settings.webp" alt="Display settings" width="200" /> |
-| **Your library** | **Page by page, like a book** | **Light, sepia or dark · RTL** | **Read exactly your way** |
+| <img src="assets/screens/library.webp" alt="Library" width="200" /> | <img src="assets/screens/reader-english.webp" alt="Reading view" width="200" /> | <img src="assets/screens/reader-dark.webp" alt="Dark theme, right-to-left" width="200" /> | <img src="assets/screens/display-settings.webp" alt="Display settings" width="200" /> |
+| **Your library** | **Page by page, like a book** | **Light, sepia or dark · right-to-left** | **Read exactly your way** |
 | <img src="assets/screens/translate.webp" alt="On-device translation" width="200" /> | <img src="assets/screens/vocabulary.webp" alt="Vocabulary with context" width="200" /> | <img src="assets/screens/practice.webp" alt="Practice quiz" width="200" /> | <img src="assets/screens/read-aloud.webp" alt="Read Aloud player" width="200" /> |
 | **Long-press. Translate.** | **Every word keeps its sentence** | **Practice offline** | **Or just listen (Coral Pro)** |
 
