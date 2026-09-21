@@ -1,0 +1,64 @@
+{
+  "name": "Coral Reader mock kit",
+  "source": "marketing/apps/coral-reader/mocks · brand.yaml (Coral 500/600/700, Zinc 950) + Theme.kt semantic accents",
+  "color": {
+    "coral500": "#FF6F61",
+    "coral600": "#E8544E",
+    "coral700": "#D4443E",
+    "coral100": "#FFE8E5",
+    "coral200": "#FFCBC5",
+    "peach": "#FFB3A7",
+    "cream": "#F6F1E8",
+    "white": "#FFFFFF",
+    "ink": "#09090B",
+    "zinc900": "#18181B",
+    "zinc800": "#27272A",
+    "zinc400": "#A1A1AA",
+    "bgTop": "#221214",
+    "bgMid": "#120C0D",
+    "bgBottom": "#09090B",
+    "violetMastered": "#8B5CF6",
+    "violetMasteredDark": "#A78BFA",
+    "greenSuccess": "#16A34A",
+    "greenSuccessDark": "#4ADE80",
+    "amberWarn": "#D97706",
+    "amberWarnDark": "#FBBF24",
+    "sky": "#38BDF8",
+    "pink": "#F472B6"
+  },
+  "gradient": {
+    "headline": "linear-gradient(90deg, #FF6F61 0%, #FFB3A7 100%)",
+    "ctaChip": "linear-gradient(135deg, #FF6F61 0%, #E8544E 100%)",
+    "cardGlow": "linear-gradient(160deg, #FF6F61 0%, #D4443E 100%)",
+    "background": [
+      "radial-gradient(70% 55% at 85% 8%, rgba(255,111,97,.42) 0%, rgba(255,111,97,0) 60%)",
+      "radial-gradient(60% 45% at 8% 92%, rgba(232,84,78,.30) 0%, rgba(232,84,78,0) 60%)",
+      "radial-gradient(40% 30% at 50% 50%, rgba(246,241,232,.06) 0%, rgba(246,241,232,0) 70%)",
+      "linear-gradient(165deg, #221214 0%, #120C0D 48%, #09090B 100%)"
+    ],
+    "backgroundDots": "radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px) 26px 26px, opacity .5"
+  },
+  "font": {
+    "display": "Plus Jakarta Sans 700, letter-spacing -0.03em, line-height 1.02",
+    "body": "Plus Jakarta Sans 500, color rgba(246,241,232,.78)",
+    "eyebrow": "Plus Jakarta Sans 700, 22px, letter-spacing .16em, uppercase, color coral500",
+    "quote": "Frank Ruhl Libre 400 (the app's reader serif)"
+  },
+  "radius": {
+    "chip": 999,
+    "card": 24,
+    "capture": 54,
+    "cover": 12
+  },
+  "shadow": {
+    "chip": "0 20px 44px rgba(0,0,0,.40)",
+    "cover": "0 30px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.14)",
+    "capture": "drop-shadow(0 60px 90px rgba(0,0,0,.55))"
+  },
+  "motion": {
+    "loop": "5 s, entrances 0.6 s, hold to 88 %, gone by 96 %",
+    "float": "translate 0→-10px, 2.5 s ease-in-out alternate",
+    "easeEnter": "cubic-bezier(.2,.8,.2,1)",
+    "easePop": "cubic-bezier(.34,1.56,.64,1)"
+  }
+}
