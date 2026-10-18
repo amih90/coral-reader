@@ -10,15 +10,18 @@
   <link rel="stylesheet" href="legal.css" />
 </head>
 <body>
+  <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="../index.html">
       <img src="../assets/icon-512.webp" alt="Coral Reader" />
-      <span class="brand-name">Coral Reader</span>
+      <span class="brand-name">Coral <span>Reader</span></span>
     </a>
+    <nav aria-label="Site navigation"><a href="../index.html#kids-club">Kids Club</a><a href="privacy-policy.html">Privacy</a><a href="../index.html">Back to home</a></nav>
   </header>
-  <main class="doc">
-  <h1>Coral Reader — Support</h1>
-  <p class="meta"><strong>Last updated:</strong> June 26, 2026</p>
+  <main class="doc" id="content">
+  <p class="eyebrow">Coral Reader · Support</p>
+  <h1>How can we help?</h1>
+  <p class="meta"><strong>Last updated:</strong> October 18, 2026</p>
 
   <div class="summary">
     Coral Reader is a private, on-device reader for the EPUB and PDF files you already have. There is
@@ -27,22 +30,35 @@
     <a href="mailto:yanayh90@gmail.com">yanayh90@gmail.com</a>.
   </div>
 
+  <nav class="toc" aria-label="Support topics"><strong>Find an answer</strong><ul><li><a href="#kids">Kids Club</a></li><li><a href="#books">Books and reading</a></li><li><a href="#subscriptions">Subscriptions</a></li><li><a href="#privacy">Privacy controls</a></li><li><a href="#contact">Contact us</a></li></ul></nav>
+  <h2 id="kids">Reading together in Kids Club</h2>
+  <p>Kids Club offers illustrated English stories for ages 6–10 with a parent or guardian's
+    supervision. Read along, translate unfamiliar words, save vocabulary, and practice together.
+    Stories and illustrations are AI-generated and human-reviewed for age appropriateness before
+    publication; choose stories that suit your child.</p>
+  <p>Stories download from our servers. There are no child accounts, profiles, or age collection.
+    Kids Club words and progress stay on the device, separate from adult learning data. Removing a
+    story download preserves its learning progress; clearing app data or uninstalling can remove
+    local data. Limited pseudonymous technical analytics are explained in our
+    <a href="privacy-policy.html#children">Privacy Policy</a>.</p>
   <h2>Frequently asked questions</h2>
 
-  <h3>How do I add a book?</h3>
+  <h3 id="books">How do I add a book?</h3>
   <p>Tap the add (+) button in your library and choose an EPUB or PDF file, or share a file to Coral
     Reader from another app. The book is imported and saved on your device.</p>
 
   <h3>Where are my books stored?</h3>
-  <p>Entirely on your device. Coral Reader never uploads, copies, or reads your books, and there is no
-    cloud sync. If you uninstall the app or clear its data, imported books are removed from the device.</p>
+  <p>Imported files stay on your device; they are not uploaded as files or full chapters.
+    Optional adult cloud AI sends selected text and limited reading context for translation or
+    enrichment. Kids Club uses local translation. If you uninstall the app or clear its data,
+    local books and learning data may be removed.</p>
 
   <h3>How do I change the theme, font, or language?</h3>
   <p>Open <strong>Settings</strong> to switch between light, dark, and system themes and to change the
     app language. While reading, open the reading options to adjust font size, spacing, and the page
     appearance.</p>
 
-  <h3>What is included in a subscription, and is there a free trial?</h3>
+  <h3 id="subscriptions">What is included in a subscription, and is there a free trial?</h3>
   <p>An optional subscription unlocks premium features and is available as a monthly or yearly plan,
     sometimes with a free trial. Billing is handled by your app store (Apple App Store or Google
     Play).</p>
@@ -60,15 +76,17 @@
   <p>Open <strong>Settings</strong> and tap <strong>Restore Purchases</strong> while signed in to the
     same app store account you used to subscribe.</p>
 
-  <h3>How do I turn off analytics?</h3>
+  <h3 id="privacy">How do I turn off analytics or cloud AI?</h3>
   <p>Open <strong>Settings</strong> and turn off <strong>“Share anonymous usage data.”</strong> This
-    stops anonymous analytics and crash reporting; the rest of the app keeps working normally.</p>
+    stops Firebase and Mixpanel analytics and Crashlytics reporting; the rest of the app keeps
+    working normally. The cloud AI opt-out in Settings is a separate control for optional adult
+    cloud translation and enrichment. Turning off analytics does not turn off cloud AI requests.</p>
 
   <h3>I found a bug or my book won’t open — what should I do?</h3>
   <p>Email <a href="mailto:yanayh90@gmail.com">yanayh90@gmail.com</a> with your device model, OS
     version, and a short description (and the file type, if a specific book is affected). We’ll help.</p>
 
-  <h2>Contact</h2>
+  <h2 id="contact">Contact</h2>
   <p>Support email: <a href="mailto:yanayh90@gmail.com">yanayh90@gmail.com</a></p>
 
   <h2>Legal</h2>

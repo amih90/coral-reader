@@ -10,30 +10,34 @@
   <link rel="stylesheet" href="legal.css" />
 </head>
 <body>
+  <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="../index.html">
       <img src="../assets/icon-512.webp" alt="Coral Reader" />
-      <span class="brand-name">Coral Reader</span>
+      <span class="brand-name">Coral <span>Reader</span></span>
     </a>
+    <nav aria-label="Site navigation"><a href="../index.html#kids-club">Kids Club</a><a href="support.html">Support</a><a href="../index.html">Back to home</a></nav>
   </header>
-  <main class="doc">
-  <h1>Coral Reader — Privacy Policy</h1>
-  <p class="meta"><strong>Effective date:</strong> June 26, 2026 &nbsp;·&nbsp; <strong>Last updated:</strong> June 26, 2026</p>
+  <main class="doc" id="content">
+  <p class="eyebrow">Coral Reader · Legal</p>
+  <h1>Privacy Policy</h1>
+  <p class="meta"><strong>Effective date:</strong> October 18, 2026 &nbsp;·&nbsp; <strong>Last updated:</strong> October 18, 2026</p>
 
   <div class="summary">
-    Coral Reader is <strong>anonymous</strong> — there is no account, no login, and no email or
-    username. We never ask who you are. The books and PDFs you import stay <strong>on your
-    device</strong>; we never upload, copy, or read them. We use Google Firebase for anonymous usage
-    analytics and crash diagnostics, and RevenueCat together with your app store for subscriptions.
-    These services rely on anonymous device and app identifiers — not your identity. We do not sell
-    your data and we do not use it to track you across other apps or websites.
+    No account, login, name, email, or age is required. Imported book files stay
+    <strong>on your device</strong>; we do not upload full files or chapters. Optional adult cloud
+    AI sends selected excerpts and limited context to our backend when used. Kids Club translation,
+    saved words, and progress stay local, separate from adult learning data. Stories download from
+    our servers. We use limited pseudonymous technical data for app functionality and reliability,
+    not advertising or profiling. We do not sell your data or track you across apps or websites.
   </div>
   <p class="meta">
-    “Anonymous” here describes the <em>absence of identity data</em> (no account, login, name, or
-    email). It does not mean “we collect nothing.” The analytics, crash, and subscription identifiers
-    described below are pseudonymous online identifiers, and they are disclosed in full.
+    No identity information does not mean no technical data. App identifiers, network metadata,
+    diagnostics, and purchase records can be pseudonymous personal data without a name or account.
+    The processing below includes Firebase, Mixpanel, RevenueCat, and our Azure-backed services.
   </p>
 
+  <nav class="toc" aria-label="Privacy policy topics"><strong>In this policy</strong><ul><li><a href="#data">Technical data</a></li><li><a href="#cloud-ai">Optional cloud AI</a></li><li><a href="#providers">Providers</a></li><li><a href="#choices">Privacy controls</a></li><li><a href="#children">Kids Club</a></li><li><a href="#rights">Your rights</a></li></ul></nav>
   <h2>1. Who we are &amp; how to contact us</h2>
   <p>The app “Coral Reader” is published by <strong>Yanai Hollander</strong>, an individual sole
     proprietor resident in <strong>Israel</strong>, who acts as the data controller for the limited
@@ -43,21 +47,26 @@
 
   <h2>2. Scope</h2>
   <p>This policy applies to the Coral Reader mobile app on Android and iOS, including data processed
-    on your device and data processed by the integrated third-party providers listed in Section 6.</p>
+    on your device, parent-supervised Kids Club for ages 6–10, story downloads, optional adult cloud
+    AI, and the third-party providers listed in Section 6.</p>
 
   <h2>3. What we do NOT collect</h2>
   <ul>
     <li>No user accounts, logins, or passwords; no name, email address, username, phone number,
       contacts, photos, or precise location.</li>
-    <li>We never upload, host, copy, transmit, sell, or read the EPUB/PDF files or book content you
-      import. Imported books are stored and processed entirely on your device.</li>
+    <li>We do not upload imported book files or full chapters. Optional adult cloud AI processes
+      selected excerpts and limited context as described below, not your entire library.</li>
+    <li>No child accounts, profiles, names, dates of birth, or ages. Kids Club saved words, answers,
+      and learning progress are not uploaded to or stored on our backend.</li>
     <li>We do not sell personal information, and we do not use your data for cross-context behavioral
       advertising or for tracking you across other apps or websites.</li>
   </ul>
 
-  <h2>4. What we DO collect</h2>
-  <p>The app collects only anonymous and pseudonymous telemetry, summarized below.</p>
+  <h2 id="data">4. Technical data and optional cloud processing</h2>
+  <p>Limited pseudonymous telemetry supports functionality and reliability, not ads or profiling.</p>
+  <div class="table-scroll" role="region" aria-label="Technical data categories" tabindex="0">
   <table>
+    <caption>Data categories and providers</caption>
     <thead>
       <tr><th>Category</th><th>Examples</th><th>Collected by</th></tr>
     </thead>
@@ -69,13 +78,13 @@
           <code>onboarding_completed</code>, plus parameters such as an internal local
           <code>book_id</code> (never the book’s title, content, or file), source, trigger, and
           duration.</td>
-        <td>Firebase Analytics</td>
+        <td>Firebase Analytics, Mixpanel</td>
       </tr>
       <tr>
         <td>Device &amp; app context</td>
         <td>App-instance ID, device model, OS version, app version, language/locale, and an
           approximate region derived from IP address.</td>
-        <td>Firebase Analytics</td>
+        <td>Firebase Analytics, Mixpanel</td>
       </tr>
       <tr>
         <td>Crash &amp; diagnostics</td>
@@ -90,21 +99,41 @@
           identifier. We never receive your payment card details.</td>
         <td>RevenueCat + App Store / Google Play</td>
       </tr>
+      <tr><td>Kids Club functionality events</td><td>Predefined screen, download, narration,
+        translation, and practice events; surface, outcome, and exercise categories; bucketed counts.
+        Event properties exclude free-form text, story IDs, words, answers, ages, and profiles.
+        Events use existing pseudonymous app identifiers, not child identities.</td><td>Firebase Analytics, Mixpanel</td></tr>
+      <tr><td>Catalog and download requests</td><td>Requests for stories and assets, IP address,
+        pseudonymous installation/subscription identifiers, access tokens and entitlement checks,
+        and technical request/error metadata needed to deliver downloads and keep the service
+        working. These requests do not upload Kids learning records or book text.</td><td>Our Azure-backed backend</td></tr>
+      <tr><td>Optional adult cloud AI</td><td>Selected term or phrase, one surrounding sentence,
+        title, author, chapter label, language pair, and a pseudonymous RevenueCat identifier,
+        when the cloud feature is used. No full files or chapters.</td><td>Our Azure-backed backend and configured AI model provider</td></tr>
     </tbody>
   </table>
+  </div>
+  <h3 id="cloud-ai">Optional adult cloud AI</h3>
+  <p>Adult cloud translation and language enrichment send the limited text and context above
+    to our backend and its configured AI model provider to return a result. This is separate from
+    on-device translation. Use the cloud AI opt-out in Settings to disable it. Kids Club uses
+    local translation and does not send learning content for cloud enrichment.</p>
 
   <h2>5. Why we process it &amp; legal bases (GDPR Art. 6)</h2>
   <ul>
     <li>To provide and operate the app: performance of a contract (Art. 6(1)(b)).</li>
     <li>To manage subscriptions and verify entitlements: performance of a contract (Art. 6(1)(b)).</li>
-    <li>To understand usage and improve the product: your consent (Art. 6(1)(a)) where required,
+    <li>To deliver stories and optional cloud language results: performance of a contract
+      (Art. 6(1)(b)).</li>
+    <li>To understand whether app features work and improve reliability, not for advertising or
+      child profiling: your consent (Art. 6(1)(a)) where required,
       otherwise our legitimate interests (Art. 6(1)(f)). You can withdraw consent at any time via the
       Settings opt-out described in Section 10.</li>
     <li>To diagnose crashes and keep the app stable and secure: our legitimate interests
       (Art. 6(1)(f)).</li>
   </ul>
 
-  <h2>6. Third-party providers</h2>
+  <h2 id="providers">6. Third-party providers</h2>
   <p>We rely on a small number of established providers that process data on our behalf or as
     independent controllers for billing. Each maintains its own privacy policy:</p>
   <ul>
@@ -113,6 +142,13 @@
       <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>).</li>
     <li>Google Firebase Crashlytics — crash reporting
       (<a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>).</li>
+    <li>Mixpanel — app functionality analytics
+      (<a href="https://mixpanel.com/legal/privacy-policy/">mixpanel.com/legal/privacy-policy</a>).</li>
+    <li>Microsoft Azure — backend infrastructure, catalog delivery, and optional cloud AI processing
+      with the configured model provider
+      (<a href="https://privacy.microsoft.com/privacystatement">privacy.microsoft.com/privacystatement</a>).</li>
+    <li>The configured AI model provider processes the limited optional cloud AI payload described
+      in Section 4. Contact us for the current provider and applicable terms.</li>
     <li>RevenueCat — subscription management and receipt validation
       (<a href="https://www.revenuecat.com/privacy">revenuecat.com/privacy</a>).</li>
     <li>Apple App Store — payment processing and subscription billing on iOS
@@ -130,9 +166,11 @@
   <h2>8. Data retention</h2>
   <p>Data stored on your device persists until you remove it (delete a book, clear the app’s data, or
     uninstall the app). Analytics, crash, and subscription data are retained according to the
-    providers’ configured retention windows and then deleted or aggregated.</p>
+    providers’ configured retention windows and then deleted or aggregated. Backend and AI model
+    provider data are retained under the applicable service configuration and provider terms;
+    we do not promise zero retention for these services.</p>
 
-  <h2>9. Your rights</h2>
+  <h2 id="rights">9. Your rights</h2>
   <p>Depending on where you live, you may have rights under the EU/UK GDPR, the Israeli Protection of
     Privacy Law, and the California CCPA/CPRA — including the right to access, correct, delete, or
     object to processing, and to opt out of any “sale” or “sharing” of personal information. Because
@@ -141,17 +179,29 @@
     <a href="mailto:yanayh90@gmail.com">yanayh90@gmail.com</a>; we may ask for information needed to
     locate the relevant identifiers.</p>
 
-  <h2>10. Analytics consent &amp; opt-out</h2>
-  <p>Firebase Analytics and Crashlytics are enabled by default. You can turn them off at any time
+  <h2 id="choices">10. Analytics consent &amp; opt-out</h2>
+  <p>Firebase Analytics, Mixpanel, and Crashlytics are enabled by default. You can turn them off at any time
     using the <strong>“Share anonymous usage data”</strong> toggle in <strong>Settings</strong>. When
     you turn it off, analytics and crash collection stop, and essential app functionality is
     unaffected.</p>
+  <p>The cloud AI opt-out in Settings is separate. Disabling analytics does not disable
+    optional cloud AI requests or the network requests needed to download stories and manage purchases.</p>
 
-  <h2>11. Children’s privacy</h2>
-  <p>Coral Reader is intended for a general audience and is not directed to children. You must be at
-    least 13 years old (or the minimum age of digital consent in your country, if higher) to use the
-    app. We do not knowingly collect data from children below that age; if you believe a child has
-    used the app, contact us and we will address it.</p>
+  <h2 id="children">11. Children’s privacy &amp; Kids Club</h2>
+  <p>Kids Club is an English-reading experience designed for ages 6–10 with parent or guardian
+    supervision. This is a recommended reading range, not age verification; we do not ask for or
+    store children's ages. There are no child accounts or profiles.</p>
+  <p>Saved words, practice results, and reading progress stay on the device, separate from adult
+    learning data, and are not stored on our backend. Removing a downloaded story preserves local
+    progress; clearing app data or uninstalling can remove local learning data. Stories are
+    downloaded from our servers, not uploaded from the device.</p>
+  <p>Kids Club translation runs locally and does not use adult cloud enrichment. Limited
+    pseudonymous functionality events and technical download metadata described in Section 4
+    may still be processed. We do not use them for advertising or child profiling. Parents can
+    manage local data and the settings in Section 10, or contact us about privacy concerns.</p>
+  <p>Stories and illustrations are AI-generated and human-reviewed for age appropriateness before
+    being added to the app. Review is not a guarantee that every story suits every child; parents
+    should choose stories and supervise use.</p>
 
   <h2>12. Do Not Sell or Share (CCPA/CPRA)</h2>
   <p>We do not sell or share personal information, and we do not process it for cross-context
