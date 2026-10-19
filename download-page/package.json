@@ -1,0 +1,14 @@
+{
+  "name": "coral-reader-public-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test scripts/attribution.test.mjs",
+    "test:browser": "npm run build && node scripts/browser-attribution.test.mjs",
+    "check": "npm run build && npm test"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}

@@ -104,6 +104,29 @@ Coral Reader is available on the **[App Store](https://apps.apple.com/us/app/cor
 
 ---
 
+## Website development
+
+GitHub Pages serves this repository's root at https://coral-reader.com.
+The campaign download page source, Apple provider configuration, and tests live
+in `download-page/`; its images and app logo live in `assets/`.
+
+```sh
+npm --prefix download-page ci
+npm --prefix download-page run check
+npm --prefix download-page run test:browser
+```
+
+The browser checks use installed Google Chrome. The build updates only
+`get/index.html` and its hashed CSS/JavaScript in `assets/`, never the homepage.
+Commit those generated files alongside source changes; Pages does not run Node.
+Keep old hashed assets available for cached pages.
+
+`download-page/campaign-config.json` contains Apple's public provider token.
+A nonempty `APP_STORE_PROVIDER_TOKEN` overrides it for a build.
+Campaign labels use `utm_source`, `utm_medium`, `utm_campaign`, optional
+`utm_content`, and Apple's `ct`. Download-page tests are standalone and do not
+require the private app repository.
+
 ## 🎨 Branding
 
 Looking for logos, colors, and brand assets? See the **[Branding Guide](BRANDING.md)**.
