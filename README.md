@@ -104,6 +104,26 @@ Coral Reader is available on the **[App Store](https://apps.apple.com/us/app/cor
 
 ---
 
+## Launch campaign links
+
+Reuse each platform's link across its text, image, or video posts. All four use
+the **launch** campaign and measure the platform, not individual posts.
+
+| Platform | Download link |
+| --- | --- |
+| WhatsApp | https://coral-reader.com/get/?utm_source=whatsapp&utm_medium=referral&utm_campaign=launch&ct=launch_whatsapp |
+| Reddit | https://coral-reader.com/get/?utm_source=reddit&utm_medium=organic_social&utm_campaign=launch&ct=launch_reddit |
+| Facebook | https://coral-reader.com/get/?utm_source=facebook&utm_medium=organic_social&utm_campaign=launch&ct=launch_facebook |
+| Instagram | https://coral-reader.com/get/?utm_source=instagram&utm_medium=organic_social&utm_campaign=launch&ct=launch_instagram |
+
+Android results appear in Mixpanel under `install_attribution_resolved`, grouped
+by `acquisition_source` and filtered to `acquisition_campaign = launch`.
+iOS results appear in App Store Connect > Analytics > Acquisition > Campaigns
+under `launch_whatsapp`, `launch_reddit`, `launch_facebook`, or `launch_instagram`.
+Apple reports aggregate results only after its minimum qualifying-download
+threshold is met; TestFlight installs do not validate these campaigns.
+Forwarded links retain their original platform label.
+
 ## Website development
 
 GitHub Pages serves this repository's root at https://coral-reader.com.
