@@ -103,7 +103,11 @@ test("built module contains the configured provider token and runs the real page
     "download-ios": {},
     "campaign-notice": { hidden: true },
   };
-  globalThis.document = { getElementById: (id) => nodes[id] };
+  globalThis.document = {
+    getElementById: (id) => nodes[id],
+    querySelectorAll: (selector) =>
+      [nodes[selector === '[data-store="android"]' ? "download-android" : "download-ios"]],
+  };
   globalThis.location = { search: `?${fixture}&ct=ig_oct_video01` };
   try {
     await import(pathToFileURL(join(rootDir, "assets", asset)).href);
@@ -117,9 +121,14 @@ test("built module contains the configured provider token and runs the real page
   }
 });
 
-test("build is deterministic, preserves the homepage, and resolves local assets", async () => {
+test("build is deterministic, preserves homepage content, and shares its module with /get/", async () => {
   const homepage = await readFile(join(rootDir, "index.html"));
   const html = await readFile(join(rootDir, "get/index.html"), "utf8");
+  const modulePath = html.match(/<script type="module" src="([^"]+)"/)?.[1];
+  assert.ok(modulePath);
+  assert.ok(homepage.toString().includes(
+    `<script type="module" src="${modulePath}" data-store-links></script>`,
+  ));
   const references = [...html.matchAll(/\b(?:href|src)="(\/[^"]+)"/g)]
     .map((match) => match[1]).filter((path) => path !== "/");
   const before = await Promise.all(references.map((path) => readFile(join(rootDir, path))));

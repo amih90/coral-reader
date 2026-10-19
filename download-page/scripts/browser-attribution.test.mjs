@@ -41,6 +41,9 @@ try {
   const context = await browser.newContext();
   await context.route("**/*", (route) => {
     if (new URL(route.request().url()).origin === base) return route.continue();
+    if (route.request().resourceType() === "stylesheet") {
+      return route.fulfill({ contentType: "text/css", body: "" });
+    }
     return route.fulfill({ contentType: "text/html", body: "<h1>Intercepted store navigation</h1>" });
   });
   const page = await context.newPage();
@@ -74,6 +77,7 @@ try {
     new URL(document.getElementById("download-android").href).searchParams.has("referrer"),
   );
   assert.equal(new URL(await android.getAttribute("href")).searchParams.get("referrer"), fixture);
+  const androidUrl = await android.getAttribute("href");
   const provider = process.env.APP_STORE_PROVIDER_TOKEN || campaignConfig.appStoreProviderToken;
   const appleUrl = new URL(await ios.getAttribute("href"));
   assert.equal(appleUrl.searchParams.get("pt"), provider || null);
@@ -102,6 +106,36 @@ try {
   assert.equal(new URL(await android.getAttribute("href")).searchParams.has("referrer"), false);
   assert.equal(new URL(await ios.getAttribute("href")).search, "");
 
+  for (const width of [1280, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const store of ["android", "ios"]) {
+      for (const index of [0, 1]) {
+        await page.goto(`${base}/${campaign}#download`);
+        const buttons = page.locator(`[data-store="${store}"]`);
+        assert.equal(await buttons.count(), 2);
+        const expected = store === "android" ? androidUrl : appleUrl.href;
+        for (const button of await buttons.all()) {
+          assert.equal(await button.getAttribute("href"), expected);
+        }
+        assert.equal(await page.locator("#campaign-notice").isVisible(), !provider);
+        await buttons.nth(index).click();
+        await page.waitForURL(store === "android"
+          ? "https://play.google.com/**" : "https://apps.apple.com/**");
+        assert.equal(page.url(), expected);
+      }
+    }
+  }
+  for (const query of ["", `?${fixture}&utm_source=facebook&ct=ig_oct_video01`]) {
+    await page.goto(`${base}/${query}`);
+    for (const button of await page.locator('[data-store="android"]').all()) {
+      assert.equal(new URL(await button.getAttribute("href")).searchParams.has("referrer"), false);
+    }
+    for (const button of await page.locator('[data-store="ios"]').all()) {
+      assert.equal(new URL(await button.getAttribute("href")).search, "");
+    }
+    assert.equal(await page.locator("#campaign-notice").isVisible(), query !== "");
+  }
+
   const noScript = await browser.newContext({ javaScriptEnabled: false });
   const fallback = await noScript.newPage();
   await fallback.goto(`${base}/get/`);
@@ -109,8 +143,17 @@ try {
   assert.equal(await fallback.getByRole("link", { name: "Download on the App Store" }).isVisible(), true);
   const fallbackPlay = await fallback.getByRole("link", { name: "Get it on Google Play" }).getAttribute("href");
   assert.equal(new URL(fallbackPlay).searchParams.has("referrer"), false);
+  await fallback.goto(`${base}/${campaign}`);
+  assert.equal(await fallback.locator("[data-store]").count(), 4);
+  for (const button of await fallback.locator("[data-store]").all()) {
+    assert.equal(await button.isVisible(), true);
+    const url = new URL(await button.getAttribute("href"));
+    assert.ok(["https://play.google.com", "https://apps.apple.com"].includes(url.origin));
+    assert.equal(url.searchParams.has("referrer"), false);
+    assert.equal(url.searchParams.has("ct"), false);
+  }
   assert.deepEqual(errors, []);
-  console.log("Browser verified: desktop/mobile store navigation, exact campaign URLs, invalid-input fallback, and no-JavaScript downloads.");
+  console.log("Browser verified: homepage and /get/ desktop/mobile store navigation, exact campaign URLs, invalid-input fallback, and no-JavaScript downloads.");
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

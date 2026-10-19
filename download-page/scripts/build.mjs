@@ -19,10 +19,19 @@ const scriptPath = `/assets/download.${hash(script)}.mjs`;
 const html = (await readFile(join(siteDir, "index.html"), "utf8"))
   .replaceAll("__SITE_CSS__", cssPath)
   .replaceAll("__DOWNLOAD_JS__", scriptPath);
+const homepagePath = join(rootDir, "index.html");
+const homepage = await readFile(homepagePath, "utf8");
+const homepageScript = /<script type="module" src="[^"]+" data-store-links><\/script>/g;
+if ([...homepage.matchAll(homepageScript)].length !== 1) {
+  throw new Error("Homepage must contain exactly one data-store-links module script.");
+}
+const updatedHomepage = homepage.replace(homepageScript,
+  `<script type="module" src="${scriptPath}" data-store-links></script>`);
 
 await mkdir(join(rootDir, "assets"), { recursive: true });
 await mkdir(join(rootDir, "get"), { recursive: true });
 await writeFile(join(rootDir, cssPath), css);
 await writeFile(join(rootDir, scriptPath), script);
 await writeFile(join(rootDir, "get/index.html"), html);
-console.log("Built /get/ and its hashed assets; homepage and existing assets preserved.");
+if (updatedHomepage !== homepage) await writeFile(homepagePath, updatedHomepage);
+console.log("Built /get/ and shared store-link assets; updated homepage script reference only.");

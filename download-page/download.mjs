@@ -35,8 +35,12 @@ export function buildStoreLinks(search, providerToken = "") {
 
 if (typeof document !== "undefined") {
   const links = buildStoreLinks(location.search, "__APP_STORE_PROVIDER_TOKEN__");
-  document.getElementById("download-android").href = links.android;
-  document.getElementById("download-ios").href = links.apple;
+  for (const link of document.querySelectorAll('[data-store="android"]')) {
+    link.href = links.android;
+  }
+  for (const link of document.querySelectorAll('[data-store="ios"]')) {
+    link.href = links.apple;
+  }
   const hasCampaign = [...new URLSearchParams(location.search).keys()]
     .some((key) => key.startsWith("utm_") || key === "ct");
   if (hasCampaign && (!links.androidAttributed || !links.appleAttributed)) {

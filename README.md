@@ -136,8 +136,9 @@ npm --prefix download-page run check
 npm --prefix download-page run test:browser
 ```
 
-The browser checks use installed Google Chrome. The build updates only
-`get/index.html` and its hashed CSS/JavaScript in `assets/`, never the homepage.
+The browser checks use installed Google Chrome. The build updates
+`get/index.html`, its hashed CSS/JavaScript in `assets/`, and only the shared
+store-link script reference in the homepage.
 Commit those generated files alongside source changes; Pages does not run Node.
 Keep old hashed assets available for cached pages.
 
@@ -146,6 +147,13 @@ A nonempty `APP_STORE_PROVIDER_TOKEN` overrides it for a build.
 Campaign labels use `utm_source`, `utm_medium`, `utm_campaign`, optional
 `utm_content`, and Apple's `ct`. Download-page tests are standalone and do not
 require the private app repository.
+
+The homepage accepts the same campaign parameters as `/get/`. Both its hero and
+bottom download buttons forward validated labels to Google Play and the App
+Store using the same link builder and configured Apple provider token. For
+example: https://coral-reader.com/?utm_source=instagram&utm_medium=organic_social&utm_campaign=launch&ct=launch_instagram
+Missing or invalid labels leave downloads available without attribution; no
+cookies or cross-visit campaign storage are used.
 
 ## 🎨 Branding
 
