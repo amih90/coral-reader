@@ -49,6 +49,53 @@ test("sample campaign survives the store URL round trip", () => {
   assert.equal(links.appleAttributed, true);
 });
 
+test("short WhatsApp links produce the same store URLs as fully specified links", () => {
+  const short = "utm_source=whatsapp&utm_campaign=launch";
+  const full = "utm_source=whatsapp&utm_medium=referral&utm_campaign=launch&ct=launch_whatsapp";
+  assert.deepEqual(buildStoreLinks(short, "123"), buildStoreLinks(full, "123"));
+  const links = buildStoreLinks(short, "123");
+  assert.equal(links.androidAttributed, true);
+  assert.equal(links.appleAttributed, true);
+  assert.equal(new URL(links.apple).searchParams.get("ct"), "launch_whatsapp");
+});
+
+test("omitted defaults are independent and explicit medium and ct values are preserved", () => {
+  const links = buildStoreLinks(fixture, "123");
+  assert.equal(new URL(links.android).searchParams.get("referrer"), fixture);
+  assert.equal(new URL(links.apple).searchParams.get("ct"), "oct_launch_instagram");
+  const custom = buildStoreLinks("utm_source=whatsapp&utm_campaign=launch&ct=custom", "123");
+  assert.equal(new URL(custom.apple).searchParams.get("ct"), "custom");
+  assert.equal(new URL(custom.android).searchParams.get("referrer"),
+    "utm_source=whatsapp&utm_medium=referral&utm_campaign=launch");
+});
+
+test("defaults never replace invalid explicit fields or missing required labels", () => {
+  const short = "utm_source=whatsapp&utm_campaign=launch";
+  for (const suffix of ["utm_medium=", "utm_medium=Uppercase", "utm_medium=one&utm_medium=two"]) {
+    const links = buildStoreLinks(`${short}&${suffix}`, "123");
+    assert.equal(links.androidAttributed, false);
+    assert.equal(links.appleAttributed, false);
+  }
+  for (const suffix of ["ct=", "ct=Uppercase", "ct=one&ct=two"]) {
+    const links = buildStoreLinks(`${short}&${suffix}`, "123");
+    assert.equal(links.androidAttributed, true);
+    assert.equal(links.appleAttributed, false);
+  }
+  for (const query of ["", "utm_source=whatsapp", "utm_campaign=launch"]) {
+    const links = buildStoreLinks(query, "123");
+    assert.equal(links.androidAttributed, false);
+    assert.equal(links.appleAttributed, false);
+  }
+});
+
+test("generated Apple labels respect the length limit without truncating or colliding", () => {
+  for (const length of [21, 22]) {
+    const links = buildStoreLinks(`utm_source=whatsapp&utm_campaign=${"a".repeat(length)}`, "123");
+    assert.equal(links.androidAttributed, true);
+    assert.equal(links.appleAttributed, length === 21);
+  }
+});
+
 test("unknown parameters and user-supplied destinations or provider tokens are never forwarded", () => {
   const links = buildStoreLinks(
     `${fixture}&email=private@example.com&redirect=https://evil.example&pt=999&ct=ig_oct_video01`,

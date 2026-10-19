@@ -4,6 +4,7 @@ const appleTokenPattern = /^[a-z0-9][a-z0-9_-]{0,29}$/;
 
 export function buildStoreLinks(search, providerToken = "") {
   const params = new URLSearchParams(search);
+  if (!params.has("utm_medium")) params.set("utm_medium", "referral");
   const campaign = new URLSearchParams();
   const valid = fields.every((field) => {
     const values = params.getAll(field);
@@ -18,6 +19,9 @@ export function buildStoreLinks(search, providerToken = "") {
 
   const apple = new URL("https://apps.apple.com/app/coral-reader/id6782911744");
   const tokens = params.getAll("ct");
+  if (tokens.length === 0 && valid) {
+    tokens.push(`${campaign.get("utm_campaign")}_${campaign.get("utm_source")}`);
+  }
   const appleAttributed = valid && /^[0-9]+$/.test(providerToken) &&
     tokens.length === 1 && appleTokenPattern.test(tokens[0]);
   if (appleAttributed) {

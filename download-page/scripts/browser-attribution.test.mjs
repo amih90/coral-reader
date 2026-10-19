@@ -136,6 +136,24 @@ try {
     assert.equal(await page.locator("#campaign-notice").isVisible(), query !== "");
   }
 
+  for (const path of ["/", "/get/"]) {
+    for (const [source, medium] of [["whatsapp", "referral"], ["instagram", "organic_social"], ["instagram", "paid_social"]]) {
+      const query = `utm_source=${source}&utm_campaign=launch` +
+        (medium === "referral" ? "" : `&utm_medium=${medium}`);
+      await page.goto(`${base}${path}?${query}`);
+      for (const button of await page.locator('[data-store="android"]').all()) {
+        assert.equal(new URL(await button.getAttribute("href")).searchParams.get("referrer"),
+          `utm_source=${source}&utm_medium=${medium}&utm_campaign=launch`);
+      }
+      for (const button of await page.locator('[data-store="ios"]').all()) {
+        const url = new URL(await button.getAttribute("href"));
+        assert.equal(url.searchParams.get("ct"), `launch_${source}`);
+        assert.equal(url.searchParams.get("pt"), provider);
+      }
+      assert.equal(await page.locator("#campaign-notice").isVisible(), false);
+    }
+  }
+
   const noScript = await browser.newContext({ javaScriptEnabled: false });
   const fallback = await noScript.newPage();
   await fallback.goto(`${base}/get/`);

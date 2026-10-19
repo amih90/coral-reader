@@ -111,10 +111,19 @@ the **launch** campaign and measure the platform, not individual posts.
 
 | Platform | Download link |
 | --- | --- |
-| WhatsApp | https://coral-reader.com/get/?utm_source=whatsapp&utm_medium=referral&utm_campaign=launch&ct=launch_whatsapp |
-| Reddit | https://coral-reader.com/get/?utm_source=reddit&utm_medium=organic_social&utm_campaign=launch&ct=launch_reddit |
-| Facebook | https://coral-reader.com/get/?utm_source=facebook&utm_medium=organic_social&utm_campaign=launch&ct=launch_facebook |
-| Instagram | https://coral-reader.com/get/?utm_source=instagram&utm_medium=organic_social&utm_campaign=launch&ct=launch_instagram |
+| WhatsApp | https://coral-reader.com/?utm_source=whatsapp&utm_campaign=launch |
+| Reddit | https://coral-reader.com/get/?utm_source=reddit&utm_medium=organic_social&utm_campaign=launch |
+| Facebook | https://coral-reader.com/get/?utm_source=facebook&utm_medium=organic_social&utm_campaign=launch |
+| Instagram | https://coral-reader.com/get/?utm_source=instagram&utm_medium=organic_social&utm_campaign=launch |
+
+Only `utm_source` and `utm_campaign` are required. An omitted `utm_medium`
+defaults to `referral`; set it explicitly for other channels (for example,
+`organic_social` or `paid_social`). An omitted Apple `ct` is generated as
+`<utm_campaign>_<utm_source>`, so the WhatsApp link above still reports as
+`launch_whatsapp`. Existing fully specified links continue to work unchanged.
+Use `organic_social` for unpaid social posts and `paid_social` for paid social
+ads. For example, a paid Instagram link to the homepage is
+https://coral-reader.com/?utm_source=instagram&utm_medium=paid_social&utm_campaign=launch
 
 Android results appear in Mixpanel under `install_attribution_resolved`, grouped
 by `acquisition_source` and filtered to `acquisition_campaign = launch`.
@@ -144,16 +153,22 @@ Keep old hashed assets available for cached pages.
 
 `download-page/campaign-config.json` contains Apple's public provider token.
 A nonempty `APP_STORE_PROVIDER_TOKEN` overrides it for a build.
-Campaign labels use `utm_source`, `utm_medium`, `utm_campaign`, optional
-`utm_content`, and Apple's `ct`. Download-page tests are standalone and do not
-require the private app repository.
+Campaign labels use required `utm_source` and `utm_campaign`, optional
+`utm_medium` (default `referral`), optional `utm_content`, and optional Apple's
+`ct` (default `<utm_campaign>_<utm_source>`). Labels must be lowercase letters,
+digits, underscores, or hyphens, start with a letter or digit, and contain at
+most 50 characters. Apple `ct` has a 30-character limit, including generated
+values; supply a shorter explicit `ct` if needed. Invalid or duplicate explicit
+values are not replaced with defaults. Download-page tests are standalone and
+do not require the private app repository.
 
 The homepage accepts the same campaign parameters as `/get/`. Both its hero and
 bottom download buttons forward validated labels to Google Play and the App
 Store using the same link builder and configured Apple provider token. For
-example: https://coral-reader.com/?utm_source=instagram&utm_medium=organic_social&utm_campaign=launch&ct=launch_instagram
-Missing or invalid labels leave downloads available without attribution; no
-cookies or cross-visit campaign storage are used.
+example: https://coral-reader.com/?utm_source=whatsapp&utm_campaign=launch
+Missing required or invalid campaign labels leave downloads available without
+attribution. An invalid Apple `ct` disables only Apple attribution. No cookies
+or cross-visit campaign storage are used. No mobile app update is needed.
 
 ## 🎨 Branding
 
