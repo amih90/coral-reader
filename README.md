@@ -106,15 +106,20 @@ Coral Reader is available on the **[App Store](https://apps.apple.com/us/app/cor
 
 ## Launch campaign links
 
-Reuse each platform's link across its text, image, or video posts. All four use
-the **launch** campaign and measure the platform, not individual posts.
+Reuse each platform's link across its text, image, or video posts. These links
+open the homepage, use the **launch** campaign, and measure the platform and
+channel, not individual posts.
 
-| Platform | Download link |
+| Platform / placement | Homepage link |
 | --- | --- |
-| WhatsApp | https://coral-reader.com/?utm_source=whatsapp&utm_campaign=launch |
-| Reddit | https://coral-reader.com/get/?utm_source=reddit&utm_medium=organic_social&utm_campaign=launch |
-| Facebook | https://coral-reader.com/get/?utm_source=facebook&utm_medium=organic_social&utm_campaign=launch |
-| Instagram | https://coral-reader.com/get/?utm_source=instagram&utm_medium=organic_social&utm_campaign=launch |
+| WhatsApp messages / groups | https://coral-reader.com/?utm_source=whatsapp&utm_campaign=launch |
+| Instagram paid ads | https://coral-reader.com/?utm_source=instagram&utm_medium=paid_social&utm_campaign=launch |
+| Instagram unpaid posts / bio | https://coral-reader.com/?utm_source=instagram&utm_medium=organic_social&utm_campaign=launch |
+| Facebook unpaid posts | https://coral-reader.com/?utm_source=facebook&utm_medium=organic_social&utm_campaign=launch |
+| Reddit unpaid posts | https://coral-reader.com/?utm_source=reddit&utm_medium=organic_social&utm_campaign=launch |
+
+To open the dedicated download page instead, replace `/?` with `/get/?` and
+keep the same parameters.
 
 Only `utm_source` and `utm_campaign` are required. An omitted `utm_medium`
 defaults to `referral`; set it explicitly for other channels (for example,
@@ -122,13 +127,15 @@ defaults to `referral`; set it explicitly for other channels (for example,
 `<utm_campaign>_<utm_source>`, so the WhatsApp link above still reports as
 `launch_whatsapp`. Existing fully specified links continue to work unchanged.
 Use `organic_social` for unpaid social posts and `paid_social` for paid social
-ads. For example, a paid Instagram link to the homepage is
-https://coral-reader.com/?utm_source=instagram&utm_medium=paid_social&utm_campaign=launch
+ads. For paid Facebook or Reddit ads, replace `organic_social` in the example
+with `paid_social`.
 
 Android results appear in Mixpanel under `install_attribution_resolved`, grouped
 by `acquisition_source` and filtered to `acquisition_campaign = launch`.
 iOS results appear in App Store Connect > Analytics > Acquisition > Campaigns
 under `launch_whatsapp`, `launch_reddit`, `launch_facebook`, or `launch_instagram`.
+Paid and unpaid links for the same platform share the default Apple campaign
+label; set explicit distinct `ct` values to separate them in App Store Connect.
 Apple reports aggregate results only after its minimum qualifying-download
 threshold is met; TestFlight installs do not validate these campaigns.
 Forwarded links retain their original platform label.
