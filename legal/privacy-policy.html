@@ -21,7 +21,7 @@
   <main class="doc" id="content">
   <p class="eyebrow">Coral Reader · Legal</p>
   <h1>Privacy Policy</h1>
-  <p class="meta"><strong>Effective date:</strong> October 18, 2026 &nbsp;·&nbsp; <strong>Last updated:</strong> October 18, 2026</p>
+  <p class="meta"><strong>Effective date:</strong> October 18, 2026 &nbsp;·&nbsp; <strong>Last updated:</strong> November 9, 2026</p>
 
   <div class="summary">
     No account, login, name, email, or age is required. Imported book files stay
@@ -48,7 +48,27 @@
   <h2>2. Scope</h2>
   <p>This policy applies to the Coral Reader mobile app on Android and iOS, including data processed
     on your device, parent-supervised Kids Club for ages 6–10, story downloads, optional adult cloud
-    AI, and the third-party providers listed in Section 6.</p>
+    AI, and the third-party providers listed in Section 6. It also covers website store-button
+    measurement described below.</p>
+
+  <h3 id="website">Website store-button measurement</h3>
+  <p>Once the website and collection service are deployed, clicking an App Store or Google Play
+    button on the homepage or <code>/get/</code> sends an anonymous event to our Azure-backed
+    service. The event contains only the page (<code>/</code> or <code>/get/</code>), chosen store
+    platform, fixed button placement, whether the store link carries campaign attribution,
+    validated campaign labels (<code>utm_source</code>, <code>utm_medium</code>,
+    <code>utm_campaign</code>, <code>utm_content</code>, <code>utm_term</code>), and, for attributed
+    Apple links, the public provider token, campaign token, and media type
+    (<code>pt</code>, <code>ct</code>, <code>mt</code>).</p>
+  <p>We use these events for campaign click reports, not unique visitor counts, confirmed
+    downloads, or cross-site tracking. The event payload excludes names, email addresses,
+    visitor/device IDs, raw page or destination URLs, referrers, and unrelated query parameters.
+    No cookies, credentials, or persistent browser identifiers are sent by this measurement.
+    Only shared, non-personal campaign labels should be used in links; do not put personal
+    information into campaign labels. As with any web request, our hosting infrastructure
+    receives network metadata such as an IP address; it is not included in the click payload.
+    JavaScript must be enabled, and blocking or failed requests may reduce counts. Store
+    navigation does not wait for collection and still works when collection fails.</p>
 
   <h2>3. What we do NOT collect</h2>
   <ul>

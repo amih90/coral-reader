@@ -11,6 +11,7 @@ const campaignConfig = JSON.parse(await readFile(join(siteDir, "campaign-config.
 const fixture = (await readFile(join(
   siteDir, "scripts/campaign-referrer.txt",
 ), "utf8")).trim();
+const clickEndpoint = "https://coralreader-qvugf3wd-api.redgrass-94a370ab.swedencentral.azurecontainerapps.io/api/v1/acquisition/store-clicks";
 const mimeTypes = { ".html": "text/html", ".css": "text/css", ".svg": "image/svg+xml", ".webp": "image/webp", ".mjs": "text/javascript" };
 
 // GitHub Pages serves the checked-in /get/ page and root assets directly.
@@ -39,7 +40,15 @@ try {
   // Reuse installed Chrome; Playwright creates its own isolated, temporary profile.
   browser = await chromium.launch({ channel: "chrome", headless: true });
   const context = await browser.newContext();
+  const collected = [];
   await context.route("**/*", (route) => {
+    if (route.request().url() === clickEndpoint) {
+      collected.push(route.request().postData());
+      return route.fulfill({
+        status: 204,
+        headers: { "access-control-allow-origin": base },
+      });
+    }
     if (new URL(route.request().url()).origin === base) return route.continue();
     if (route.request().resourceType() === "stylesheet") {
       return route.fulfill({ contentType: "text/css", body: "" });
@@ -47,6 +56,18 @@ try {
     return route.fulfill({ contentType: "text/html", body: "<h1>Intercepted store navigation</h1>" });
   });
   const page = await context.newPage();
+  const clickAndCapture = async (button, expected) => {
+    const [request] = await Promise.all([
+      page.waitForRequest((request) => request.url() === clickEndpoint),
+      button.click(),
+    ]);
+    assert.equal(request.method(), "POST");
+    const headers = await request.allHeaders();
+    assert.match(headers["content-type"], /^application\/x-www-form-urlencoded\b/);
+    assert.equal(headers.referer, undefined);
+    assert.equal(headers.cookie, undefined);
+    assert.deepEqual(Object.fromEntries(new URLSearchParams(request.postData())), expected);
+  };
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   page.on("console", (message) => {
@@ -54,6 +75,7 @@ try {
   });
   const campaign = `?${fixture}&ct=ig_oct_video01`;
   await page.goto(`${base}/get/${campaign}`);
+  assert.equal(collected.length, 0);
   const android = page.getByRole("link", { name: "Get it on Google Play" });
   const ios = page.getByRole("link", { name: "Download on the App Store" });
   const logo = page.locator(".site-header .download-logo");
@@ -83,7 +105,12 @@ try {
   assert.equal(appleUrl.searchParams.get("pt"), provider || null);
   assert.equal(appleUrl.searchParams.get("ct"), provider ? "ig_oct_video01" : null);
   assert.equal(await page.locator("#campaign-notice").isVisible(), !provider);
-  await android.click();
+  const expectedClick = (path, platform, placement) => ({
+    page: path, platform, placement, attributed: "true",
+    ...Object.fromEntries(new URLSearchParams(fixture)),
+    ...(platform === "ios" ? { ct: "ig_oct_video01", pt: provider, mt: "8" } : {}),
+  });
+  await clickAndCapture(android, expectedClick("/get/", "android", "download"));
   await page.waitForURL("https://play.google.com/**");
   assert.equal(new URL(page.url()).searchParams.get("referrer"), fixture);
 
@@ -97,7 +124,7 @@ try {
   assert.equal(await mockup.isVisible(), true);
   await mockup.evaluate((image) => image.decode());
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
-  await ios.click();
+  await clickAndCapture(ios, expectedClick("/get/", "ios", "download"));
   await page.waitForURL("https://apps.apple.com/**");
   assert.equal(page.url(), appleUrl.href);
 
@@ -118,7 +145,8 @@ try {
           assert.equal(await button.getAttribute("href"), expected);
         }
         assert.equal(await page.locator("#campaign-notice").isVisible(), !provider);
-        await buttons.nth(index).click();
+        await clickAndCapture(buttons.nth(index), expectedClick("/", store,
+          index === 0 ? "hero" : "bottom"));
         await page.waitForURL(store === "android"
           ? "https://play.google.com/**" : "https://apps.apple.com/**");
         assert.equal(page.url(), expected);
@@ -134,6 +162,15 @@ try {
       assert.equal(new URL(await button.getAttribute("href")).search, "");
     }
     assert.equal(await page.locator("#campaign-notice").isVisible(), query !== "");
+  }
+  for (const path of ["/", "/get/"]) {
+    await page.goto(`${base}${path}`);
+    const button = page.locator('[data-store="ios"]').first();
+    await clickAndCapture(button, {
+      page: path, platform: "ios", placement: path === "/" ? "hero" : "download",
+      attributed: "false",
+    });
+    await page.waitForURL("https://apps.apple.com/**");
   }
 
   for (const path of ["/", "/get/"]) {
@@ -171,7 +208,7 @@ try {
     assert.equal(url.searchParams.has("ct"), false);
   }
   assert.deepEqual(errors, []);
-  console.log("Browser verified: homepage and /get/ desktop/mobile store navigation, exact campaign URLs, invalid-input fallback, and no-JavaScript downloads.");
+  console.log("Browser verified: homepage and /get/ store navigation, campaign URLs, anonymous intercepted click forms for all placements, invalid-input fallback, and no-JavaScript downloads.");
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

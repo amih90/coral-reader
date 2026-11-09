@@ -4,7 +4,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { test } from "node:test";
 import { execFileSync } from "node:child_process";
-import { buildStoreLinks } from "../download.mjs";
+import { buildStoreClickBody, buildStoreLinks, sendStoreClick } from "../download.mjs";
 
 const siteDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const rootDir = dirname(siteDir);
@@ -139,6 +139,130 @@ test("without a configured Apple provider token no attribution is falsely claime
   }
 });
 
+test("click bodies distinguish both pages, all placements, and actual store attribution", () => {
+  const search = "?utm_source=verification&utm_campaign=verify_ios_nov&ct=verify_ios_nov&utm_term=reader";
+  const links = buildStoreLinks(search, "129068563");
+  for (const [page, placement] of [["/", "hero"], ["/", "bottom"], ["/get/", "download"]]) {
+    for (const platform of ["android", "ios"]) {
+      const body = buildStoreClickBody(search, page, platform, placement,
+        platform === "ios" ? links.apple : links.android);
+      assert.deepEqual(Object.fromEntries(body), {
+        page, platform, placement, attributed: "true",
+        utm_source: "verification", utm_campaign: "verify_ios_nov", utm_term: "reader",
+        utm_medium: "referral",
+        ...(platform === "ios" ? { ct: "verify_ios_nov", pt: "129068563", mt: "8" } : {}),
+      });
+      assert.ok(Buffer.byteLength(body.toString()) < 2048);
+    }
+  }
+  const generated = buildStoreLinks("utm_source=whatsapp&utm_campaign=launch", "129068563");
+  assert.equal(buildStoreClickBody("utm_source=whatsapp&utm_campaign=launch",
+    "/", "ios", "hero", generated.apple).get("ct"), "launch_whatsapp");
+  const maximum = new URLSearchParams(Object.fromEntries(
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"]
+      .map((field) => [field, "a".repeat(50)]),
+  ));
+  maximum.set("ct", "a".repeat(30));
+  const longestLinks = buildStoreLinks(maximum, "1".repeat(20));
+  const longestBody = buildStoreClickBody(maximum, "/get/", "ios", "download", longestLinks.apple);
+  assert.equal(longestBody.get("attributed"), "true");
+  assert.ok(Buffer.byteLength(longestBody.toString()) < 2048);
+});
+
+test("click bodies count untagged downloads and never claim invalid attribution", () => {
+  for (const search of ["", "?utm_source=whatsapp", "?utm_source=whatsapp&utm_campaign=launch&ct=Invalid"]) {
+    const links = buildStoreLinks(search, "129068563");
+    for (const platform of ["android", "ios"]) {
+      const body = buildStoreClickBody(search, "/get/", platform, "download",
+        platform === "ios" ? links.apple : links.android);
+      assert.equal(body.get("attributed"), String(platform === "ios"
+        ? links.appleAttributed : links.androidAttributed));
+      if (!search) assert.deepEqual(Object.fromEntries(body), {
+        page: "/get/", platform, placement: "download", attributed: "false",
+      });
+    }
+  }
+});
+
+test("click bodies exclude unknown, duplicate, invalid and oversized labels and raw URLs", () => {
+  const search = "?utm_source=instagram&utm_source=facebook&utm_medium=Uppercase" +
+    "&utm_campaign=launch&utm_content=person%40example.com&utm_term=" + "a".repeat(51) +
+    "&ct=launch&pt=999&mt=8&email=private@example.com&redirect=https://private.example";
+  const links = buildStoreLinks(search, "129068563");
+  assert.deepEqual(Object.fromEntries(buildStoreClickBody(search, "/", "ios", "hero", links.apple)), {
+    page: "/", platform: "ios", placement: "hero", attributed: "false", utm_campaign: "launch",
+  });
+  const valid = "?utm_source=instagram&utm_medium=paid_social&utm_campaign=launch" +
+    "&utm_content=video_01&utm_term=reader&ct=custom";
+  const attributed = buildStoreLinks(valid, "129068563");
+  const body = buildStoreClickBody(valid, "/", "ios", "bottom", attributed.apple);
+  assert.equal(body.get("utm_content"), "video_01");
+  assert.equal(body.get("utm_term"), "reader");
+  assert.equal(body.get("utm_medium"), "paid_social");
+  assert.equal(body.get("ct"), "custom");
+  assert.equal(new URL(attributed.android).searchParams.get("referrer"),
+    "utm_source=instagram&utm_medium=paid_social&utm_campaign=launch&utm_content=video_01");
+  for (const field of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"]) {
+    for (const value of ["", "Uppercase", "person%40example.com", "a".repeat(51)]) {
+      assert.equal(buildStoreClickBody(`?${field}=${value}`, "/", "ios", "hero",
+        links.apple).has(field), false);
+    }
+    assert.equal(buildStoreClickBody(`?${field}=one&${field}=two`, "/", "ios", "hero",
+      links.apple).has(field), false);
+  }
+});
+
+test("click metadata accepts only known page slots, platforms, and store origins", () => {
+  const apple = buildStoreLinks("").apple;
+  for (const args of [
+    ["/other/", "ios", "hero", apple], ["/", "ios", "download", apple],
+    ["/get/", "ios", "hero", apple], ["/", "other", "hero", apple],
+    ["/", "ios", "arbitrary", apple], ["/", "ios", "hero", "https://private.example"],
+  ]) {
+    assert.throws(() => buildStoreClickBody("", ...args));
+  }
+});
+
+test("collection is a credential-free, referrer-free keepalive form POST without waiting", () => {
+  let request;
+  const body = new URLSearchParams({ page: "/", platform: "ios", placement: "hero", attributed: "false" });
+  const result = sendStoreClick(body, (url, options) => {
+    request = { url, options };
+    return new Promise(() => {});
+  });
+  assert.equal(result, undefined);
+  assert.equal(request.url,
+    "https://coralreader-qvugf3wd-api.redgrass-94a370ab.swedencentral.azurecontainerapps.io/api/v1/acquisition/store-clicks");
+  assert.deepEqual(request.options, {
+    method: "POST", body, keepalive: true, credentials: "omit", referrerPolicy: "no-referrer",
+  });
+  assert.ok(request.options.body instanceof URLSearchParams);
+});
+
+test("collection failures warn once without throwing, retrying or leaking request data", async () => {
+  const warn = console.warn;
+  const warnings = [];
+  console.warn = (...args) => warnings.push(args);
+  try {
+    let calls = 0;
+    for (const fail of [
+      () => { throw new Error("private.example"); },
+      () => Promise.reject(new Error("private.example")),
+      () => Promise.resolve({ ok: false }),
+    ]) {
+      sendStoreClick(new URLSearchParams(), () => { calls++; return fail(); });
+    }
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(calls, 3);
+    assert.equal(warnings.length, 3);
+    for (const warning of warnings) {
+      assert.deepEqual(warning, ["Store-click collection unavailable; store navigation is unaffected."]);
+    }
+  } finally {
+    console.warn = warn;
+  }
+});
+
 test("built module contains the configured provider token and runs the real page wiring", async () => {
   const html = await readFile(join(rootDir, "get/index.html"), "utf8");
   const asset = html.match(/src="\/assets\/(download\.[a-f0-9]+\.mjs)"/)?.[1];
@@ -146,25 +270,47 @@ test("built module contains the configured provider token and runs the real page
   const script = await readFile(join(rootDir, "assets", asset), "utf8");
   assert.ok(!script.includes("__APP_STORE_PROVIDER_TOKEN__"));
   const nodes = {
-    "download-android": {},
-    "download-ios": {},
+    "download-android": { dataset: { storePlacement: "download" }, listeners: {} },
+    "download-ios": { dataset: { storePlacement: "download" }, listeners: {} },
     "campaign-notice": { hidden: true },
   };
+  for (const id of ["download-android", "download-ios"]) {
+    nodes[id].addEventListener = (name, handler) => { nodes[id].listeners[name] = handler; };
+  }
   globalThis.document = {
     getElementById: (id) => nodes[id],
     querySelectorAll: (selector) =>
       [nodes[selector === '[data-store="android"]' ? "download-android" : "download-ios"]],
   };
-  globalThis.location = { search: `?${fixture}&ct=ig_oct_video01` };
+  globalThis.location = { pathname: "/get/", search: `?${fixture}&ct=ig_oct_video01` };
+  const fetch = globalThis.fetch;
+  const requests = [];
+  globalThis.fetch = (url, options) => {
+    requests.push({ url, options });
+    return Promise.resolve({ ok: true });
+  };
   try {
     await import(pathToFileURL(join(rootDir, "assets", asset)).href);
     assert.equal(new URL(nodes["download-android"].href).searchParams.get("referrer"), fixture);
     const provider = process.env.APP_STORE_PROVIDER_TOKEN || campaignConfig.appStoreProviderToken;
     assert.equal(nodes["download-ios"].href, buildStoreLinks(location.search, provider).apple);
     assert.equal(nodes["campaign-notice"].hidden, Boolean(provider));
+    assert.equal(requests.length, 0);
+    for (const platform of ["android", "ios"]) {
+      const node = nodes[`download-${platform}`];
+      node.listeners.click({ type: "click", button: 0 });
+      node.listeners.auxclick({ type: "auxclick", button: 1 });
+      node.listeners.auxclick({ type: "auxclick", button: 2 });
+      const body = requests.at(-1).options.body;
+      assert.equal(body.get("platform"), platform);
+      assert.equal(body.get("placement"), "download");
+      assert.equal(body.get("page"), "/get/");
+    }
+    assert.equal(requests.length, 4);
   } finally {
     delete globalThis.document;
     delete globalThis.location;
+    globalThis.fetch = fetch;
   }
 });
 
@@ -177,7 +323,8 @@ test("build is deterministic, preserves homepage content, and shares its module 
     `<script type="module" src="${modulePath}" data-store-links></script>`,
   ));
   const references = [...html.matchAll(/\b(?:href|src)="(\/[^"]+)"/g)]
-    .map((match) => match[1]).filter((path) => path !== "/");
+    .map((match) => new URL(match[1], "https://coral-reader.com").pathname)
+    .filter((path) => path !== "/");
   const before = await Promise.all(references.map((path) => readFile(join(rootDir, path))));
   execFileSync(process.execPath, [join(siteDir, "scripts/build.mjs")]);
   assert.deepEqual(await readFile(join(rootDir, "index.html")), homepage);
