@@ -209,6 +209,20 @@ backend or Grafana dashboards.
 ## Website development
 
 GitHub Pages serves this repository's root at https://coral-reader.com.
+Campaign offer pages are served directly with no build step. The Telegram offer
+lives at `/redeem/telegram/` in `redeem/telegram/index.html`; `/redeem/` provides
+neutral guidance without promoting a campaign or code. Campaign pages share
+`redeem/redeem.css` and `redeem/redeem.js`; copy feedback uses the code displayed
+on the page. For future campaigns, create a separate `redeem/<campaign>/index.html`
+using the same assets and set that page's code, store links, terms, title and
+canonical/Open Graph URLs independently. Do not promote individual campaigns
+in the main site's navigation.
+The Telegram page provides TELEGRAM30 and separate Apple and Google Play
+redemption instructions; activation and eligibility are handled by each store,
+not this site.
+Preview the site locally with `python3 -m http.server 4173 --bind 127.0.0.1`
+from the repository root, then open http://127.0.0.1:4173/redeem/telegram/.
+
 The campaign download page source, Apple provider configuration, and tests live
 in `download-page/`; its images and app logo live in `assets/`.
 
