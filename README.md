@@ -213,15 +213,19 @@ Campaign offer pages are served directly with no build step. The Telegram offer
 lives at `/redeem/telegram/` in `redeem/telegram/index.html`; `/redeem/` provides
 neutral guidance without promoting a campaign or code. Campaign pages share
 `redeem/redeem.css` and `redeem/redeem.js`; copy feedback uses the code displayed
-on the page. When changing the shared CSS, update its `?v=` content-hash suffix
-on each redemption page to avoid stale CDN styles.
+on the page. Each copy button points to its code and live feedback element using
+`data-copy-code` and `data-copy-status`. When changing shared CSS or JavaScript,
+update its `?v=` content-hash suffix on each referencing redemption page to avoid
+stale CDN assets.
 For future campaigns, create a separate `redeem/<campaign>/index.html`
 using the same assets and set that page's code, store links, terms, title and
 canonical/Open Graph URLs independently. Do not promote individual campaigns
 in the main site's navigation.
-The Telegram page provides TELEGRAM30 and separate Apple and Google Play
-redemption instructions; activation and eligibility are handled by each store,
-not this site.
+The Telegram page advertises TELEGRAMIL30 (letter I) for Apple and separately
+shows TELEGRAM1L30 (digit 1) for Google Play. Both offers apply to new subscribers
+on the yearly plan: one calendar month free on Apple or 30 days on Google Play,
+then annual auto-renewal. The ordinary seven-day introductory trial does not
+stack. Activation and eligibility are handled by each store, not this site.
 Preview the site locally with `python3 -m http.server 4173 --bind 127.0.0.1`
 from the repository root, then open http://127.0.0.1:4173/redeem/telegram/.
 

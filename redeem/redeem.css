@@ -4,7 +4,7 @@ html{scroll-behavior:smooth;scroll-padding-top:24px}
 body{margin:0;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-underline-offset:4px}
 button{font:inherit}
-#copy-code[hidden]{display:none}
+.copy-code[hidden]{display:none}
 a,button,summary{-webkit-tap-highlight-color:transparent}
 :focus-visible{outline:3px solid var(--coral);outline-offset:5px}
 img{display:block;max-width:100%;height:auto}
@@ -33,14 +33,15 @@ h1{font-size:clamp(64px,6.6vw,92px);line-height:1.01;font-weight:700;letter-spac
 .gradient{background:linear-gradient(90deg,var(--coral),var(--peach));background-clip:text;-webkit-background-clip:text;color:transparent}
 .lede{font-size:17px;color:#d8cbc5;line-height:1.8;margin-bottom:26px}
 .lede strong{font-weight:600;color:var(--cream)}
-.coupon{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:435px;padding:17px 20px;border:1px dashed #ffb3a76b;border-radius:14px;background:#ffb3a708}
+.coupon{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;max-width:435px;padding:17px 20px;border:1px dashed #ffb3a76b;border-radius:14px;background:#ffb3a708}
 .coupon-label{display:block;color:var(--muted);font-size:9px;font-weight:700;letter-spacing:1.8px;margin-bottom:4px}
 code{display:block;font:700 23px/1.35 "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:2px;user-select:all;color:var(--cream)}
-#copy-code{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#ffffff0b;border:1px solid #ffffff30;color:var(--cream);border-radius:8px;padding:12px;font-size:11px;font-weight:700;cursor:pointer;min-height:44px;white-space:nowrap}
-#copy-code:hover{background:#ffffff18}
-#copy-code:disabled{opacity:.6;cursor:wait}
+.copy-code{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#ffffff0b;border:1px solid #ffffff30;color:var(--cream);border-radius:8px;padding:12px;font-size:11px;font-weight:700;cursor:pointer;min-height:44px;white-space:nowrap}
+.copy-code:hover{background:#ffffff18}
+.copy-code:disabled{opacity:.6;cursor:wait}
 .copy-feedback{min-height:24px;margin:7px 0 9px;font-size:12px;color:var(--peach);max-width:435px}
 .copy-feedback[data-state="success"]{color:#97dfac}
+.code-help{max-width:435px;color:#cabbaf;font-size:12px;line-height:1.8;margin:0 0 20px}
 .no-script{font-size:12px;color:var(--peach)}
 .button{display:flex;align-items:center;justify-content:space-between;gap:20px;text-decoration:none;min-height:54px;padding:15px 22px;border-radius:10px;font-size:13px;font-weight:800;transition:transform .18s,background .18s}
 .button:hover{transform:translateY(-2px)}
@@ -71,6 +72,14 @@ h2{font-size:clamp(30px,3vw,40px);line-height:1.15;letter-spacing:-1.5px;font-we
 .section-heading>p{font-size:12px;color:#716461;max-width:330px;margin-bottom:0;line-height:1.9}
 .platform-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .platform-card{display:flex;flex-direction:column;background:#fff;border:1px solid #e4dcd4;border-radius:18px;padding:30px}
+.platform-card .coupon{max-width:none;margin-top:24px;border-color:#cba99b;background:#fff8f3}
+.platform-card code{color:#422723;font-size:21px;letter-spacing:1.5px}
+.platform-card .coupon-label,.platform-card .code-help{color:#75645b}
+.platform-card .copy-code{color:#65352a;border-color:#dfc4b8;background:#fce5dc}
+.platform-card .copy-code:hover{background:#f9d6c6}
+.platform-card .copy-feedback{color:#953d34}
+.platform-card .copy-feedback[data-state="success"]{color:#326c42}
+.platform-card .code-help{margin-bottom:0}
 .platform-heading{display:flex;align-items:center;gap:14px;position:relative;border-bottom:1px solid #eee6de;padding-bottom:24px}
 .platform-icon{display:grid;place-items:center;flex:none;width:50px;height:50px;border-radius:13px;background:#f6f1e8}
 .android-card .platform-icon{background:#ecf0e5;color:#486044}
@@ -115,6 +124,6 @@ footer a:hover{color:#fff}
 @media(min-width:1500px){.hero-grid{padding-block:85px}}
 @media(max-width:1050px){.hero-grid{gap:20px}.hero-art{min-height:620px}.phone{width:230px}.orbit{width:330px}.gift-note{left:0;bottom:94px;padding-inline:18px;font-size:18px}.art-caption{right:0;font-size:18px}.store-tag{display:none}.details-grid{gap:50px}}
 @media(max-width:760px){.wrap{width:calc(100% - 40px)}.header-inner{height:74px}.brand{font-size:15px}.brand img{width:32px;height:32px}.header-link{font-size:11px}.hero-grid{grid-template-columns:1fr;padding-top:43px;padding-bottom:20px;gap:20px}.hero-copy{max-width:520px;width:100%;margin-inline:auto}h1{font-size:72px;letter-spacing:-4px}.eyebrow{font-size:9px}.lede{font-size:15px}.coupon,.hero-button,.hero-terms{max-width:none}.hero-art{min-height:480px;max-width:420px;width:100%;margin:auto;padding-bottom:25px}.phone{width:195px;margin-left:20px}.art-caption{display:none}.gift-note{bottom:65px;left:7px}.art-footnote{bottom:0}.hero-bottom{font-size:9px;padding-block:19px}.hero-bottom>span:last-child{max-width:145px;text-align:right}.redemption{padding-top:48px}.section-heading{display:block}.section-heading>p{margin-top:18px}.platform-grid{grid-template-columns:1fr;gap:18px}.platform-card{padding:25px}.store-tag{display:block}.platform-heading{gap:12px}.reassurance{align-items:start;text-align:center;font-size:10px;padding-block:23px}.reassurance>span{line-height:1.3}.details-section{padding:45px 0}.details-grid{grid-template-columns:1fr;gap:30px}.details-intro{max-width:340px}}
-@media(max-width:520px){footer .wrap{width:min(100% - 28px,1180px)}}
-@media(max-width:380px){.wrap{width:calc(100% - 32px)}.header-link{font-size:10px}h1{font-size:64px}.coupon{padding:15px;gap:10px}code{font-size:19px;letter-spacing:1.6px}#copy-code{gap:6px;padding:10px;font-size:10px}.hero-terms{font-size:10px}.deadline{font-size:9px}.platform-card{padding:22px}.store-tag{display:none}}
+@media(max-width:520px){.coupon .copy-code{width:100%}footer .wrap{width:min(100% - 28px,1180px)}}
+@media(max-width:380px){.wrap{width:calc(100% - 32px)}.header-link{font-size:10px}h1{font-size:64px}.coupon{padding:15px;gap:10px}code,.platform-card code{font-size:19px;letter-spacing:1.6px}.copy-code{gap:6px;padding:10px;font-size:10px}.hero-terms{font-size:10px}.deadline{font-size:9px}.platform-card{padding:22px}.store-tag{display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button{transition:none}.button:hover{transform:none}}
