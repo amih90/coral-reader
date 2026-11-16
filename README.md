@@ -213,7 +213,9 @@ Campaign offer pages are served directly with no build step. The Telegram offer
 lives at `/redeem/telegram/` in `redeem/telegram/index.html`; `/redeem/` provides
 neutral guidance without promoting a campaign or code. Campaign pages share
 `redeem/redeem.css` and `redeem/redeem.js`; copy feedback uses the code displayed
-on the page. For future campaigns, create a separate `redeem/<campaign>/index.html`
+on the page. When changing the shared CSS, update its `?v=` content-hash suffix
+on each redemption page to avoid stale CDN styles.
+For future campaigns, create a separate `redeem/<campaign>/index.html`
 using the same assets and set that page's code, store links, terms, title and
 canonical/Open Graph URLs independently. Do not promote individual campaigns
 in the main site's navigation.
